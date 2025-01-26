@@ -19,26 +19,6 @@ export function LoginForm({ className, ...props }) {
     undefined
   );
 
-  // async function handleSignIn(event) {
-  //   event.preventDefault();
-  //   setLoading(true);
-  //   const form = new FormData(event.target);
-  //   try {
-  //     const res = await fetch("/api/sign-in", {
-  //       method: "POST",
-  //       body: form,
-  //     });
-  //     const result = await res.json();
-
-  //     if (result.status === 200) {
-  //       // router.push("/signin");
-  //     }
-  //     setError(result.error);
-  //   } catch (error) {
-  //     setError(error.message);
-  //   }
-  //   setLoading(false);
-  // }
   return (
     <div
       className={cn("flex flex-col gap-1 translate-y-5", className)}
