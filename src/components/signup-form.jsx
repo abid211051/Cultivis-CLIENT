@@ -13,9 +13,33 @@ import {
 } from "./ui/select";
 import { useState } from "react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 export function SignupForm({ className, ...props }) {
+  const router = useRouter();
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
   const [role, setRole] = useState("");
+
+  async function handleSignUp(event) {
+    event.preventDefault();
+    setLoading(true);
+    const form = new FormData(event.target);
+    try {
+      const res = await fetch("/api/sign-up", {
+        method: "POST",
+        body: form,
+      });
+      const result = await res.json();
+      if (result.status === 200) {
+        router.push("/signin");
+      }
+      setError(result.message);
+    } catch (error) {
+      setError(error.message);
+    }
+    setLoading(false);
+  }
   return (
     <div
       className={cn("flex flex-col gap-1 translate-y-5", className)}
@@ -23,7 +47,7 @@ export function SignupForm({ className, ...props }) {
     >
       <Card className="overflow-hidden ">
         <CardContent className="p-0">
-          <form className="px-3 md:px-4 pb-4 pt-2">
+          <form className="px-3 md:px-4 pb-4 pt-2" onSubmit={handleSignUp}>
             <div className="flex flex-col items-center text-center mb-4">
               <p className="text-lg text-balance text-muted-foreground">
                 Enhance Your Farming With Cultivis
@@ -47,6 +71,7 @@ export function SignupForm({ className, ...props }) {
                     value={role}
                     onValueChange={(value) => setRole(value)}
                     name="role"
+                    defaultValue="farmer"
                   >
                     <SelectTrigger className="flex h-9 w-full rounded-md border border-input bg-transparent px-3 py-1 ">
                       <SelectValue placeholder="Select a Role" />
@@ -98,9 +123,10 @@ export function SignupForm({ className, ...props }) {
               </div>
             </div>
             <div className="grid gap-2 mt-5 text-center">
-              <Button type="submit" className="w-full">
+              <Button type="submit" className="w-full" disabled={loading}>
                 Create a New Account
               </Button>
+              {error && <p className="text-red-400 text-sm">{error}</p>}
               <div className="relative text-center text-sm after:absolute after:inset-0 after:top-1/2 after:z-0 after:flex after:items-center after:border-t after:border-border">
                 <span className="relative z-10 bg-background px-2 text-muted-foreground">
                   Or continue with

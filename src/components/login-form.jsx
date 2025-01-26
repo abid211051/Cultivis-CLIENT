@@ -1,11 +1,44 @@
+"use client";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
+import { useActionState } from "react";
+import { authenticate } from "@/app/api/sign-in/action";
+import { useSearchParams } from "next/navigation";
 
 export function LoginForm({ className, ...props }) {
+  const searchParams = useSearchParams();
+  const callbackUrl = searchParams.get("callbackUrl") || "/dashboard";
+  const [errorMessage, formAction, isPending] = useActionState(
+    authenticate,
+    undefined
+  );
+
+  // async function handleSignIn(event) {
+  //   event.preventDefault();
+  //   setLoading(true);
+  //   const form = new FormData(event.target);
+  //   try {
+  //     const res = await fetch("/api/sign-in", {
+  //       method: "POST",
+  //       body: form,
+  //     });
+  //     const result = await res.json();
+
+  //     if (result.status === 200) {
+  //       // router.push("/signin");
+  //     }
+  //     setError(result.error);
+  //   } catch (error) {
+  //     setError(error.message);
+  //   }
+  //   setLoading(false);
+  // }
   return (
     <div
       className={cn("flex flex-col gap-1 translate-y-5", className)}
@@ -13,7 +46,7 @@ export function LoginForm({ className, ...props }) {
     >
       <Card className="overflow-hidden">
         <CardContent className="grid p-0 md:grid-cols-2">
-          <form className="px-3 md:px-4 pb-4 pt-2">
+          <form className="px-3 md:px-4 pb-4 pt-2" action={formAction}>
             <div className="flex flex-col gap-4">
               <div className="flex flex-col items-center text-center">
                 <h1 className="text-2xl font-bold">Welcome back</h1>
@@ -43,10 +76,20 @@ export function LoginForm({ className, ...props }) {
                 </div>
                 <Input id="password" type="password" name="password" required />
               </div>
+              <input type="hidden" name="redirectTo" value={callbackUrl} />
               <div className="grid gap-1 text-center">
-                <Button type="submit" className="w-full">
+                <Button
+                  type="submit"
+                  className="w-full"
+                  aria-disabled={isPending}
+                >
                   Signin
                 </Button>
+                {errorMessage && (
+                  <>
+                    <p className="text-sm text-red-500">{errorMessage}</p>
+                  </>
+                )}
               </div>
               <div className="relative text-center text-sm after:absolute after:inset-0 after:top-1/2 after:z-0 after:flex after:items-center after:border-t after:border-border">
                 <span className="relative z-10 bg-background px-2 text-muted-foreground">

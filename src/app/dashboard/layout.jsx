@@ -1,4 +1,5 @@
 import "@/app/globals.css";
+import { auth } from "@/app/api/auth/[...nextauth]/route";
 import { AppSidebar } from "@/components/app-sidebar";
 import {
   SidebarInset,
@@ -10,7 +11,7 @@ export const metadata = {
   title: "Dasboard",
   description: "A helper for better farming and community",
 };
-export default function Layout({ children }) {
+export default async function Layout({ children }) {
   return (
     <html lang="en">
       <body className={`antialiased`}>

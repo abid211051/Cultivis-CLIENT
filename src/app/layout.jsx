@@ -1,4 +1,3 @@
-import { Metadata } from "next";
 import "@/app/globals.css";
 
 export const metadata = {
