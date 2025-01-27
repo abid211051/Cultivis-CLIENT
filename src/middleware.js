@@ -2,9 +2,6 @@ import { NextResponse } from "next/server";
 import { getToken } from "next-auth/jwt";
 
 export async function middleware(req) {
-  console.log("Logging req object in middleware:", req);
-  console.log("Env type:", process.env.NODE_ENV);
-
   const token = await getToken({
     req,
     secret: process.env.AUTH_SECRET,
@@ -12,9 +9,6 @@ export async function middleware(req) {
   });
   const role = token?.role;
   const path = req.nextUrl.pathname;
-  console.log("Got token in middleware: ", token);
-  console.log("Got role in middleware: ", role);
-
   if (path === "/") {
     return NextResponse.next();
   }
@@ -36,8 +30,6 @@ export async function middleware(req) {
     (role === "admin" || role === "farmer" || role === "expert") &&
     isPublicPath
   ) {
-    console.log("This /dashborad access cond is triggered from middleware");
-
     return NextResponse.redirect(new URL(`/dashboard`, req.url), {
       status: 308,
     });
