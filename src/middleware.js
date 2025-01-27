@@ -3,6 +3,7 @@ import { getToken } from "next-auth/jwt";
 
 export async function middleware(req) {
   console.log("Logging req object in middleware:", req);
+  console.log("Env type:", process.env.NODE_ENV);
 
   const token = await getToken({
     req,
