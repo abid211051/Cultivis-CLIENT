@@ -8,14 +8,15 @@ export async function middleware(req) {
   });
   const role = token?.role;
   const path = req.nextUrl.pathname;
-  console.log(token);
+  console.log("Got token in middleware: ", token);
+  console.log("Got role in middleware: ", role);
 
   if (path === "/") {
     return NextResponse.next();
   }
   const isPublicPath = path === "/signin" || path === "/signup";
   if (!token && !isPublicPath) {
-    return NextResponse.redirect(new URL("/signin", req.url));
+    return NextResponse.redirect(new URL("/signin", req.url), { status: 308 });
   }
   if (!token && isPublicPath) {
     return NextResponse.next();
@@ -31,7 +32,11 @@ export async function middleware(req) {
     (role === "admin" || role === "farmer" || role === "expert") &&
     isPublicPath
   ) {
-    return NextResponse.redirect(new URL(`/dashboard`, req.url));
+    console.log("This /dashborad access cond is triggered from middleware");
+
+    return NextResponse.redirect(new URL(`/dashboard`, req.url), {
+      status: 308,
+    });
   }
   return new NextResponse("Forbidden", { status: 403 });
 }
