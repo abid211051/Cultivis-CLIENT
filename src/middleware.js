@@ -8,6 +8,7 @@ export async function middleware(req) {
   });
   const role = token?.role;
   const path = req.nextUrl.pathname;
+  console.log(token);
 
   if (path === "/") {
     return NextResponse.next();
