@@ -1,7 +1,7 @@
 "use server";
 
 import { AuthError } from "next-auth";
-import { signIn } from "../auth/[...nextauth]/route";
+import { signIn, signOut } from "../auth/[...nextauth]/route";
 
 export async function authenticate(prevState, formData) {
   try {
@@ -14,6 +14,17 @@ export async function authenticate(prevState, formData) {
         default:
           return "Something went wrong.";
       }
+    }
+    throw error;
+  }
+}
+
+export async function logoutuser() {
+  try {
+    await signOut({ redirect: true });
+  } catch (error) {
+    if (error instanceof AuthError) {
+      return "Something went wrong.";
     }
     throw error;
   }

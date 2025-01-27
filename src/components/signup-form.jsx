@@ -163,7 +163,11 @@ export function SignupForm({ className, ...props }) {
               </div>
               <div className="text-center text-sm">
                 Already have an account?{" "}
-                <Link href="/signin" className="underline underline-offset-4">
+                <Link
+                  href="/signin"
+                  className="underline underline-offset-4"
+                  replace={true}
+                >
                   Sign In
                 </Link>
               </div>

@@ -5,7 +5,7 @@ export default function IntroNav() {
     <div className="fixed w-full flex justify-between items-center p-1.5 bg-muted">
       <img src="/CultiVis.png" alt="CultiVis Logo" className="w-9 md:w-10 " />
       <div>
-        <Link href={"/signin"}>
+        <Link href={"/signin"} replace={true}>
           <span className="p-2 text-lg font-bold bg-white cursor-pointer">
             SignIn
           </span>

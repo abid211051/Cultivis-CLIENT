@@ -17,7 +17,7 @@ export function NavMain({ items }) {
       <SidebarMenu className="flex flex-col gap-2">
         {items.map((item) => (
           <SidebarMenuItem key={item.name} className="group/collapsible">
-            <Link href={item.url}>
+            <Link href={item.url} replace={true}>
               <SidebarMenuButton
                 tooltip={item.name}
                 className={`${

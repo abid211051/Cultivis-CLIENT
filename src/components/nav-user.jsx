@@ -1,7 +1,7 @@
 "use client";
 
 import { BadgeCheck, Bell, ChevronsUpDown, LogOut } from "lucide-react";
-
+import { logoutuser } from "@/app/api/sign-in-out/action";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import {
   DropdownMenu,
@@ -74,7 +74,9 @@ export function NavUser({ user }) {
             <DropdownMenuSeparator />
             <DropdownMenuItem>
               <LogOut />
-              Log out
+              <form action={logoutuser}>
+                <button type="submit">Log out</button>
+              </form>
             </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>

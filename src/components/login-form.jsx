@@ -5,10 +5,8 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
-import { useState } from "react";
 import { useActionState } from "react";
-import { authenticate } from "@/app/api/sign-in/action";
+import { authenticate } from "@/app/api/sign-in-out/action";
 import { useSearchParams } from "next/navigation";
 
 export function LoginForm({ className, ...props }) {
@@ -107,7 +105,11 @@ export function LoginForm({ className, ...props }) {
               </div>
               <div className="text-center text-sm">
                 Don&apos;t have an account?{" "}
-                <Link href="/signup" className="underline underline-offset-4">
+                <Link
+                  href="/signup"
+                  className="underline underline-offset-4"
+                  replace={true}
+                >
                   Sign Up
                 </Link>
               </div>
