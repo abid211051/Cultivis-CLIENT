@@ -43,16 +43,16 @@ export const authConfig = {
     signIn: "/signin",
   },
   callbacks: {
-    async signIn({ user, account, profile }) {
-      await dbConnect();
+    // async signIn({ user, account, profile }) {
+    //   await dbConnect();
 
-      const isUserExist = await Users.findOne({ email: user?.email });
-      if (!isUserExist) {
-        const newuser = new Users({ name: user?.name, email: user?.email });
-        await newuser.save();
-      }
-      return true;
-    },
+    //   const isUserExist = await Users.findOne({ email: user?.email });
+    //   if (!isUserExist) {
+    //     const newuser = new Users({ name: user?.name, email: user?.email });
+    //     await newuser.save();
+    //   }
+    //   return true;
+    // },
     async jwt({ user, token }) {
       if (user) {
         token.id = user.id;

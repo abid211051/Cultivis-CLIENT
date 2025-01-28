@@ -5,7 +5,7 @@ export const metadata = {
   description: "A helper for better farming and community",
 };
 
-export default function RootLayout({ children }) {
+export default async function RootLayout({ children }) {
   return (
     <html lang="en">
       <body className={`antialiased`}>{children}</body>

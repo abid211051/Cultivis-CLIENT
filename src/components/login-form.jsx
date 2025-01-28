@@ -56,11 +56,7 @@ export function LoginForm({ className, ...props }) {
               </div>
               <input type="hidden" name="redirectTo" value={callbackUrl} />
               <div className="grid gap-1 text-center">
-                <Button
-                  type="submit"
-                  className="w-full"
-                  aria-disabled={isPending}
-                >
+                <Button type="submit" className="w-full" disabled={isPending}>
                   Signin
                 </Button>
                 {errorMessage && (

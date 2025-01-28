@@ -1,5 +1,4 @@
 import "@/app/globals.css";
-import { auth } from "@/app/api/auth/[...nextauth]/route";
 import { AppSidebar } from "@/components/app-sidebar";
 import {
   SidebarInset,
@@ -13,20 +12,18 @@ export const metadata = {
 };
 export default async function Layout({ children }) {
   return (
-    <html lang="en">
-      <body className={`antialiased`}>
-        <SidebarProvider>
-          <AppSidebar />
-          <SidebarInset className="lg:h-screen bg-[#d9dede] flex flex-col">
-            <header className="lg:h-[5%] h-[40px] flex items-center">
-              <SidebarTrigger className="ml-2" />
-            </header>
-            <div className="lg:h-[95%] py-3 xl:py-5 xl:px-5 lg:px-3 px-2">
-              {children}
-            </div>
-          </SidebarInset>
-        </SidebarProvider>
-      </body>
-    </html>
+    <div className={`antialiased`}>
+      <SidebarProvider>
+        <AppSidebar />
+        <SidebarInset className="lg:h-screen bg-[#d9dede] flex flex-col">
+          <header className="lg:h-[5%] h-[40px] flex items-center">
+            <SidebarTrigger className="ml-2" />
+          </header>
+          <div className="lg:h-[95%] py-3 xl:py-5 xl:px-5 lg:px-3 px-2">
+            {children}
+          </div>
+        </SidebarInset>
+      </SidebarProvider>
+    </div>
   );
 }
