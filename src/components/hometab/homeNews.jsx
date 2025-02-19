@@ -6,7 +6,7 @@ import { ScrollArea } from "../ui/scroll-area";
 export default function HomeNews() {
   return (
     // border-2
-    <div className="bg-white lg:row-start-2 lg:row-span-1 lg:col-start-1 lg:col-span-8 rounded-xl  flex flex-col gap-2 lg:m-0 mb-5 p-2">
+    <div className="bg-white lg:row-start-2 lg:row-span-1 lg:col-start-1 lg:col-span-7 rounded-xl  flex flex-col gap-2 lg:m-0 mb-5 p-2">
       <div className="flex justify-between  items-center">
         <div className="flex items-center gap-2 rounded-tl-md">
           <Rss
@@ -33,11 +33,7 @@ export default function HomeNews() {
           >
             <div className="w-[420px] xl:h-[140px] h-[100px] overflow-hidden bg-white flex justify-center rounded-md">
               <Image
-                src={
-                  index % 2 === 0
-                    ? "/Screenshot 2024-09-09 144240.png"
-                    : "/rainy.png"
-                }
+                src={index % 2 === 0 ? "/field2-min.png" : "/rainy.png"}
                 alt="img"
                 width={100}
                 height={40}

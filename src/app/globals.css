@@ -84,6 +84,9 @@ body {
     background-clip: text;
     -webkit-text-fill-color: transparent;
   }
+  .shadowall {
+    box-shadow: 4px 4px black;
+  }
 }
 
 @layer base {

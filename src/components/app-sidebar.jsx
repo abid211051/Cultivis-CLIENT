@@ -1,5 +1,4 @@
 "use client";
-
 import * as React from "react";
 import {
   BrainCircuit,
@@ -27,11 +26,6 @@ import {
 
 // This is sample data.
 const data = {
-  user: {
-    name: "Abed",
-    email: "abed@gmail.com",
-    avatar: "/CultiVis.png",
-  },
   teams: [
     {
       name: "Cultivis",
@@ -101,7 +95,7 @@ export function AppSidebar({ ...props }) {
         <NavProjects projects={data.projects} />
       </SidebarContent>
       <SidebarFooter className="bg-[#30324b] text-white">
-        <NavUser user={data.user} />
+        <NavUser user={props.userdata} />
       </SidebarFooter>
       <SidebarRail />
     </Sidebar>

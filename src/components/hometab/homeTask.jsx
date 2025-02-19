@@ -78,7 +78,7 @@ export default function HomeTask() {
 
   return (
     <div
-      className="bg-white lg:row-start-1 lg:row-span-1 py-2 lg:col-start-8 lg:col-span-5 rounded-xl  flex flex-col gap-2 lg:m-0 mb-5"
+      className="bg-white lg:row-start-1 lg:row-span-1 py-2 lg:col-start-7 lg:col-span-5 rounded-xl  flex flex-col gap-2 lg:m-0 mb-5"
       aria-label="Quick Task view section"
     >
       <div className="flex justify-between items-center px-2">

@@ -6,4 +6,5 @@ export async function isvalid() {
   if (!session) {
     return redirect("/signin");
   }
+  return session;
 }

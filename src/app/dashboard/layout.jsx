@@ -1,5 +1,6 @@
 import "@/app/globals.css";
 import { AppSidebar } from "@/components/app-sidebar";
+import { isvalid } from "@/app/api/auth/sessionCheck";
 import {
   SidebarInset,
   SidebarProvider,
@@ -11,11 +12,12 @@ export const metadata = {
   description: "A helper for better farming and community",
 };
 export default async function Layout({ children }) {
+  const session = await isvalid();
   return (
     <div className={`antialiased`}>
       <SidebarProvider>
-        <AppSidebar />
-        <SidebarInset className="lg:h-screen bg-[#d9dede] flex flex-col">
+        <AppSidebar userdata={session.user} />
+        <SidebarInset className="lg:h-screen bg-[#f7f7fc] flex flex-col">
           <header className="lg:h-[5%] h-[40px] flex items-center">
             <SidebarTrigger className="ml-2" />
           </header>

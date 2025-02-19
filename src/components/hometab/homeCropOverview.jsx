@@ -11,7 +11,7 @@ import { ScrollArea, ScrollBar } from "../ui/scroll-area";
 export default function HomeCropOverview() {
   return (
     // border-2
-    <div className="lg:row-start-2 lg:row-span-1 lg:col-start-9 lg:col-span-4 rounded-xl flex flex-col justify-between gap-2">
+    <div className="lg:row-start-2 lg:row-span-1 lg:col-start-8 lg:col-span-4 rounded-xl flex flex-col justify-between gap-2">
       <Link
         href={"#"}
         className="bg-gradient-to-r from-[#008055] to-[#2dd39c] flex-1 flex flex-col text-white justify-between gap-3  p-2 rounded-xl"
