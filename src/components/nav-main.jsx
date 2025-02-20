@@ -16,21 +16,21 @@ export function NavMain({ items }) {
       <SidebarGroupLabel className="text-[#ffb055]">Tabs</SidebarGroupLabel>
       <SidebarMenu className="flex flex-col gap-2">
         {items.map((item) => (
-          <SidebarMenuItem key={item.name} className="group/collapsible">
-            <Link href={item.url} replace={true}>
+          <SidebarMenuItem key={item?.name} className="group/collapsible">
+            <Link href={item?.url} replace={true}>
               <SidebarMenuButton
-                tooltip={item.name}
+                tooltip={item?.name}
                 className={`${
-                  pathName === item.url ? "bg-white text-black" : ""
-                }`}
+                  pathName === item?.url ? "bg-white text-black" : ""
+                } rounded-l-xl rounded-r-none text-base py-5`}
               >
-                {item.icon && <item.icon />}
+                {item?.icon && <item.icon />}
                 <span
                   className={`${
-                    item.name === "Ask Quo" ? "text-gradient" : ""
+                    item?.name === "Ask Quo" ? "text-gradient" : ""
                   }`}
                 >
-                  {item.name}
+                  {item?.name}
                 </span>
               </SidebarMenuButton>
             </Link>

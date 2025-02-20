@@ -87,7 +87,7 @@ const data = {
 export function AppSidebar({ ...props }) {
   return (
     <Sidebar collapsible="icon" {...props}>
-      <SidebarHeader className="bg-[#30324b] text-white ">
+      <SidebarHeader className="bg-[#30324b] text-white">
         <TeamSwitcher teams={data.teams} />
       </SidebarHeader>
       <SidebarContent className="bg-[#30324b] text-white border-b-2">

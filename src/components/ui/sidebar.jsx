@@ -175,9 +175,7 @@ const Sidebar = React.forwardRef(
             data-mobile="true"
             className="w-[--sidebar-width] bg-sidebar p-0 text-sidebar-foreground [&>button]:hidden"
             aria-describedby={undefined}
-            style={{
-              "--sidebar-width": SIDEBAR_WIDTH_MOBILE,
-            }}
+            style={{ "--sidebar-width": SIDEBAR_WIDTH_MOBILE }}
             side={side}
           >
             <div className="flex h-full w-full flex-col">{children}</div>
@@ -212,10 +210,10 @@ const Sidebar = React.forwardRef(
             side === "left"
               ? "left-0 group-data-[collapsible=offcanvas]:left-[calc(var(--sidebar-width)*-1)]"
               : "right-0 group-data-[collapsible=offcanvas]:right-[calc(var(--sidebar-width)*-1)]",
-            // Adjust the padding for floating and inset variants.
             variant === "floating" || variant === "inset"
               ? "p-2 group-data-[collapsible=icon]:w-[calc(var(--sidebar-width-icon)_+_theme(spacing.4)_+2px)]"
-              : "group-data-[collapsible=icon]:w-[--sidebar-width-icon] group-data-[side=left]:border-r group-data-[side=right]:border-l",
+              : // group-data-[side=left]:border-r
+                "group-data-[collapsible=icon]:w-[--sidebar-width-icon]  group-data-[side=right]:border-l",
             className
           )}
           {...props}
@@ -370,7 +368,10 @@ const SidebarGroup = React.forwardRef(({ className, ...props }, ref) => {
     <div
       ref={ref}
       data-sidebar="group"
-      className={cn("relative flex w-full min-w-0 flex-col p-2", className)}
+      className={cn(
+        "relative flex w-full min-w-0 flex-col pl-2 py-2",
+        className
+      )}
       {...props}
     />
   );

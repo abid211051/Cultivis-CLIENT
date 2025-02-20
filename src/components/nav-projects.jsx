@@ -1,4 +1,5 @@
 "use client";
+import { usePathname } from "next/navigation";
 import {
   SidebarGroup,
   SidebarGroupLabel,
@@ -6,19 +7,29 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from "@/components/ui/sidebar";
+import Link from "next/link";
 
 export function NavProjects({ projects }) {
+  const pathName = usePathname();
+
   return (
     <>
       <SidebarGroup>
         <SidebarGroupLabel className="text-[#ffb055]">Tools</SidebarGroupLabel>
         <SidebarMenu className="flex flex-col gap-2">
           {projects.map((item) => (
-            <SidebarMenuItem key={item.name} className="group/collapsible">
-              <SidebarMenuButton tooltip={item.name}>
-                {item.icon && <item.icon />}
-                <span>{item.name}</span>
-              </SidebarMenuButton>
+            <SidebarMenuItem key={item?.name} className="group/collapsible">
+              <Link href={item?.url} replace={true}>
+                <SidebarMenuButton
+                  tooltip={item?.name}
+                  className={`${
+                    pathName === item?.url ? "bg-white text-black" : ""
+                  } rounded-r-none text-base py-5`}
+                >
+                  {item?.icon && <item.icon />}
+                  <span>{item?.name}</span>
+                </SidebarMenuButton>
+              </Link>
             </SidebarMenuItem>
           ))}
         </SidebarMenu>

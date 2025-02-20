@@ -1,5 +1,5 @@
 import IntroNav from "@/components/intro-nav";
-import { LoginForm } from "@/components/login-form";
+import { LoginForm } from "@/components/loginsignup/login-form";
 import { Suspense } from "react";
 export default function Page() {
   return (

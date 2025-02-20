@@ -17,7 +17,7 @@ export default async function Layout({ children }) {
     <div className={`antialiased`}>
       <SidebarProvider>
         <AppSidebar userdata={session.user} />
-        <SidebarInset className="lg:h-screen bg-[#f7f7fc] flex flex-col">
+        <SidebarInset className="lg:h-screen bg-[#ffffff] flex flex-col">
           <header className="lg:h-[5%] h-[40px] flex items-center">
             <SidebarTrigger className="ml-2" />
           </header>
