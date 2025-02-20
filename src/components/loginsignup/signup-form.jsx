@@ -10,7 +10,7 @@ import {
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "./ui/select";
+} from "@/components/ui/select";
 import { useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
