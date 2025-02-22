@@ -2,10 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-body {
-  /* font-family: "var(--font-playwrite)"; */
-}
-
 @layer base {
   :root {
     --background: 0 0% 100%;
@@ -86,15 +82,6 @@ body {
   }
   .shadowall {
     box-shadow: 4px 4px black;
-  }
-}
-
-@layer base {
-  * {
-    @apply border-border;
-  }
-  body {
-    @apply bg-background text-foreground;
   }
 }
 
