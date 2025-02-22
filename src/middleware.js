@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { getToken } from "next-auth/jwt";
 
 export async function middleware(req) {
+  console.log("Vercel Environment:", process.env.VERCEL_ENV);
   const token = await getToken({
     req,
     secret: process.env.AUTH_SECRET,

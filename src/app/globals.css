@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 body {
-  /* font-family: "var(--font-playwrite)"; */
+  font-family: "var(--font-playwrite)";
 }
 
 @layer base {
@@ -97,8 +97,6 @@ body {
     @apply bg-background text-foreground;
   }
 }
-
-
 
 @layer base {
   * {
