@@ -1,8 +1,8 @@
 "use client";
-
 import Image from "next/image";
 import { useState } from "react";
 import { hourlyWeather, dailyWeather } from "@/app/api/weatherData/actions";
+
 export default function DailyHourlyForecast({ hourlyweather }) {
   const [data, setData] = useState(hourlyweather);
   const [toggleForecast, setToggleForecast] = useState("hourly");
@@ -24,7 +24,9 @@ export default function DailyHourlyForecast({ hourlyweather }) {
       <div className="w-full flex justify-between p-1">
         <button
           className={`flex-1 ${
-            toggleForecast === "hourly" ? "bg-black text-white" : ""
+            toggleForecast === "hourly"
+              ? "bg-white text-black font-semibold"
+              : ""
           } p-1 rounded-md font-medium`}
           value={"hourly"}
           onClick={(e) => (setToggleForecast("hourly"), getForecastData(e))}
@@ -33,7 +35,9 @@ export default function DailyHourlyForecast({ hourlyweather }) {
         </button>
         <button
           className={`flex-1 ${
-            toggleForecast === "daily" ? "bg-black text-white" : ""
+            toggleForecast === "daily"
+              ? "bg-white text-black font-semibold"
+              : ""
           } p-1 rounded-md font-medium`}
           value={"daily"}
           onClick={(e) => (setToggleForecast("daily"), getForecastData(e))}
@@ -41,11 +45,11 @@ export default function DailyHourlyForecast({ hourlyweather }) {
           Daily
         </button>
       </div>
-      <div className="flex xl:justify-around justify-between border-t-[1px]">
+      <div className="flex xl:justify-around justify-between items-center border-t-[1px]">
         {data?.length > 0 ? (
           data.map((item) => (
             <div
-              key={item.dt}
+              key={item?.dt}
               className="flex flex-col justify-center items-center  px-1 rounded-md"
             >
               <span className="font-medium text-sm">{item?.dt}</span>
@@ -64,7 +68,9 @@ export default function DailyHourlyForecast({ hourlyweather }) {
             </div>
           ))
         ) : (
-          <span className="text-sm">No Forecast Data Found</span>
+          <div className="text-center mx-auto">
+            <span className="text-sm">No Forecast Data Found</span>
+          </div>
         )}
       </div>
     </>

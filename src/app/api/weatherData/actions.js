@@ -9,11 +9,9 @@ export async function currentWeather() {
       }
     );
     const currentweather = await res.json();
-
     return currentweather;
   } catch (error) {
-    console.log(error);
-    return error.message;
+    return { error: error.message };
   }
 }
 
@@ -29,8 +27,7 @@ export async function hourlyWeather() {
 
     return hourlyweather;
   } catch (error) {
-    console.log(error);
-    return error.message;
+    return { error: error.message };
   }
 }
 
@@ -43,7 +40,6 @@ export async function dailyWeather() {
 
     return dailyweather;
   } catch (error) {
-    console.log(error);
-    return error.message;
+    return { error: error.message };
   }
 }
