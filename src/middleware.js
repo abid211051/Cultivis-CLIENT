@@ -6,7 +6,7 @@ export async function middleware(req) {
   const token = await getToken({
     req,
     secret: process.env.AUTH_SECRET,
-    secureCookie: process.env.NODE_ENV === "production",
+    secureCookie: process.env.NODE_ENV === "production" || "preview",
   });
   const role = token?.role;
   const path = req.nextUrl.pathname;
