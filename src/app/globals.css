@@ -80,8 +80,18 @@
     background-clip: text;
     -webkit-text-fill-color: transparent;
   }
-  .shadowall {
-    box-shadow: 4px 4px black;
+
+  .navigation-btn-in {
+    width: 90%;
+    height: 82%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+    background-color: #2d65ff;
+    color: white;
+    box-shadow: 0px -0.6px 0px 5.5px #b2bccd;
+    border-radius: 1rem;
   }
 }
 

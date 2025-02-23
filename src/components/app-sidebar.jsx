@@ -21,7 +21,6 @@ import {
   SidebarContent,
   SidebarFooter,
   SidebarHeader,
-  SidebarRail,
 } from "@/components/ui/sidebar";
 
 // This is sample data.
@@ -69,8 +68,6 @@ const data = {
       url: "/dashboard/news",
       icon: Rss,
     },
-  ],
-  projects: [
     {
       name: "Feedback",
       url: "#",
@@ -87,17 +84,16 @@ const data = {
 export function AppSidebar({ ...props }) {
   return (
     <Sidebar collapsible="icon" {...props}>
-      <SidebarHeader className="bg-[#30324b] text-white">
+      <SidebarHeader className="bg-white text-black">
         <TeamSwitcher teams={data.teams} />
       </SidebarHeader>
-      <SidebarContent className="bg-[#30324b] text-white border-b-2">
+      <SidebarContent className="bg-[#b2bccd] text-black border-b-2 transition-all">
         <NavMain items={data.navMain} />
-        <NavProjects projects={data.projects} />
+        <div className="flex-1 bg-white">s</div>
       </SidebarContent>
-      <SidebarFooter className="bg-[#30324b] text-white">
+      <SidebarFooter className="bg-white text-black">
         <NavUser user={props.userdata} />
       </SidebarFooter>
-      <SidebarRail />
     </Sidebar>
   );
 }

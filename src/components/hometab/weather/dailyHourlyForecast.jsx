@@ -25,9 +25,9 @@ export default function DailyHourlyForecast({ hourlyweather }) {
         <button
           className={`flex-1 ${
             toggleForecast === "hourly"
-              ? "bg-white text-black font-semibold"
+              ? "bg-[#2d65ff] text-white font-semibold"
               : ""
-          } p-1 rounded-md font-medium`}
+          } p-1 font-medium transition-all`}
           value={"hourly"}
           onClick={(e) => (setToggleForecast("hourly"), getForecastData(e))}
         >
@@ -36,9 +36,9 @@ export default function DailyHourlyForecast({ hourlyweather }) {
         <button
           className={`flex-1 ${
             toggleForecast === "daily"
-              ? "bg-white text-black font-semibold"
+              ? "bg-[#2d65ff] text-white font-semibold"
               : ""
-          } p-1 rounded-md font-medium`}
+          } p-1 font-medium transition-all`}
           value={"daily"}
           onClick={(e) => (setToggleForecast("daily"), getForecastData(e))}
         >

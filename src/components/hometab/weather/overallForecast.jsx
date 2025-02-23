@@ -18,7 +18,7 @@ export default function OverallForecast({ currentweather, hourlyweather }) {
     <>
       <div
         aria-label="location"
-        className="w-fit flex items-center gap-2  bg-white/20 backdrop-blur-md  rounded-md px-2 xl:py-1"
+        className="w-fit flex items-center gap-2 px-2 xl:py-1"
       >
         <MapPin size={15} strokeWidth={2} className="" />
         <p className="text-sm uppercase line-clamp-1 ">
@@ -30,12 +30,12 @@ export default function OverallForecast({ currentweather, hourlyweather }) {
         aria-label="temperature"
         className="flex justify-around items-center py-1"
       >
-        <div className="flex items-center gap-2  bg-white/20 backdrop-blur-md  rounded-md px-2 xl:py-1">
+        <div className="flex items-center gap-2  px-2 xl:py-1">
           <span className="text-6xl ">
             {parseInt(currentweather?.main?.temp) || "N/A"} &#176;C
           </span>
         </div>
-        <div className="bg-white/20  backdrop-blur-md rounded-md px-2 xl:py-1">
+        <div className="px-2 xl:py-1">
           <p className="text-xs text-center">
             {currentweather?.weather?.[0]?.description || "N/A"}
           </p>
@@ -47,10 +47,7 @@ export default function OverallForecast({ currentweather, hourlyweather }) {
           />
         </div>
       </div>
-      <div
-        aria-label="other weather metrics"
-        className="xl:py-1 rounded-b-md bg-white/20  backdrop-blur-md rounded-md"
-      >
+      <div aria-label="other weather metrics" className="xl:py-1 rounded-b-md">
         <div className="flex xl:justify-around justify-between items-center px-2">
           <div>
             <div className="flex items-center gap-1 ">
