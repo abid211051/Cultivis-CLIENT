@@ -31,10 +31,6 @@ import {
 } from "lucide-react";
 import { ScrollArea } from "../ui/scroll-area";
 
-// interface Day {
-//   date: Date;
-// }
-
 export default function HomeTask() {
   const [currentDate, setCurrentDate] = useState(new Date());
   const [selectedDays, setSelectedDays] = useState(getMonthDays(currentDate));
@@ -78,27 +74,28 @@ export default function HomeTask() {
 
   return (
     <div
-      className="bg-white lg:row-start-1 lg:row-span-1 py-2 lg:col-start-7 lg:col-span-5 rounded-xl  flex flex-col gap-2 lg:m-0 mb-5"
+      className="w-[100%] mx-auto lg:row-start-1 lg:row-span-1 lg:col-start-7 lg:col-span-5  flex flex-col  lg:mb-0 mb-5"
       aria-label="Quick Task view section"
     >
-      <div className="flex justify-between items-center px-2">
-        <div className="flex items-center gap-2 rounded-tl-md">
-          <ClipboardList
-            size={26}
-            strokeWidth={2}
-            className="rounded-md p-[2px] text-black bg-white border-[2px]"
-          />
-          <span className="font-bold">Tasks</span>
+      <div className="flex h-full">
+        <div className="flex-1 bg-white flex justify-center items-center rounded-tr-xl rounded-tl-xl">
+          <div className="flex items-center gap-2 flex-1 bg-[#ffffff] px-2">
+            <ClipboardList
+              size={26}
+              strokeWidth={2}
+              className="rounded-md p-[2px] text-black bg-white border-[2px]"
+            />
+            <span className="font-bold">Tasks</span>
+          </div>
         </div>
-        <Link
-          href={"#"}
-          className="flex items-center justify-between gap-2 p-2 bg-[#2d65ff] rounded-md text-white font-semibold"
-        >
-          <span className="text-xs">View All</span>
-          <SquareArrowOutUpRight size={12} strokeWidth={3} />
-        </Link>
+        <div className="w-[100px] h-[50px] bg-white flex justify-center items-center rounded-tl-3xl rounded-tr-3xl rounded-br-3xl">
+          <Link href={"#"} className="navigation-btn-in">
+            <span className="text-xs">View All</span>
+            <SquareArrowOutUpRight size={18} strokeWidth={3} />
+          </Link>
+        </div>
       </div>
-      <div className="px-3">
+      <div className="px-3 bg-white rounded-tr-xl">
         <div className="flex gap-1 border-b-2">
           <Select
             onValueChange={(e) => handleMonthChange(e)}
@@ -138,7 +135,7 @@ export default function HomeTask() {
           </Select>
         </div>
       </div>
-      <Carousel className="max-w-full border-b-2">
+      <Carousel className="max-w-full border-b-2 bg-white">
         <CarouselContent>
           {selectedDays.map((day, index) => (
             <CarouselItem
@@ -151,7 +148,7 @@ export default function HomeTask() {
           ))}
         </CarouselContent>
       </Carousel>
-      <ScrollArea className="w-full lg:h-auto h-[200px] rounded-b-md px-2">
+      <ScrollArea className="w-full lg:h-auto h-[200px] rounded-b-xl p-2  bg-white">
         {Array.from({ length: 24 }, (_, i) =>
           i % 2 != 0 ? (
             <div key={i} className="mb-2 grid grid-cols-6 gap-2 text-justify">

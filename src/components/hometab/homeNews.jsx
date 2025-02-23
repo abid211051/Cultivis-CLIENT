@@ -5,42 +5,42 @@ import { ScrollArea } from "../ui/scroll-area";
 
 export default function HomeNews() {
   return (
-    // border-2
-    <div className="bg-white lg:row-start-2 lg:row-span-1 lg:col-start-1 lg:col-span-7 rounded-xl  flex flex-col gap-2 lg:m-0 mb-5 p-2">
-      <div className="flex justify-between  items-center">
-        <div className="flex items-center gap-2 rounded-tl-md">
-          <Rss
-            size={26}
-            strokeWidth={2}
-            className="rounded-md p-[2px] bg-white text-black border-[2px]"
-          />
-          <span className="font-bold">News</span>
+    <div className="w-[100%]  bg-[#b2bccd] lg:row-start-2 lg:row-span-1 lg:col-start-1 lg:col-span-7 flex flex-col lg:mb-0 mb-5">
+      <div className="flex">
+        <div className="flex-1 bg-white flex justify-center items-center rounded-tr-xl rounded-tl-xl">
+          <div className="flex items-center gap-2 flex-1 bg-[#ffffff] px-2">
+            <Rss
+              size={26}
+              strokeWidth={2}
+              className="rounded-md p-[2px] bg-white text-black border-[2px]"
+            />
+            <span className="font-bold">News</span>
+          </div>
         </div>
-        <Link
-          href={"#"}
-          className="flex items-center justify-between gap-2 p-2 bg-[#2d65ff] rounded-md text-white font-semibold"
-        >
-          <span className="text-xs">View All</span>
-          <SquareArrowOutUpRight size={12} strokeWidth={3} />
-        </Link>
+        <div className="w-[100px] h-[50px] bg-white flex justify-center items-center rounded-tl-3xl rounded-tr-3xl rounded-br-3xl">
+          <Link href={"#"} className="navigation-btn-in">
+            <span className="text-xs">View All</span>
+            <SquareArrowOutUpRight size={18} strokeWidth={3} />
+          </Link>
+        </div>
       </div>
-
-      <ScrollArea className="lg:h-full h-[300px] rounded-b-md border-t-2">
+      <ScrollArea className="lg:h-full h-[300px] p-2 bg-white rounded-xl rounded-tl-none">
         {Array.from({ length: 10 }).map((_, index) => (
           <div
             key={index}
-            className="flex items-center gap-2 mb-3  cursor-pointer group"
+            className="w-full grid grid-cols-4 items-center mb-3 gap-2 cursor-pointer group rounded-xl overflow-hidden"
           >
-            <div className="w-[420px] xl:h-[140px] h-[100px] overflow-hidden bg-white flex justify-center rounded-md">
+            {/* w-[420px] */}
+            <div className="bg-[#d9dede] col-start-1 col-span-1 xl:h-[140px] h-[100px] overflow-hidden flex justify-center rounded-s-md">
               <Image
                 src={index % 2 === 0 ? "/field2-min.png" : "/rainy.png"}
                 alt="img"
                 width={100}
                 height={40}
-                className="w-auto object-contain rounded-md h-full group-hover:scale-110 transition-transform"
+                className="w-auto object-contain h-full group-hover:scale-110 transition-transform"
               />
             </div>
-            <div className="flex flex-col gap-1 text-justify">
+            <div className="lg:p-2 p-1 col-start-2 col-span-3 flex flex-col gap-1 justify-evenly xl:h-[140px] h-[100px] text-justify rounded-e-lg bg-[#d9dede]">
               <p
                 className={`text-xs ${
                   index % 2 == 1 ? "bg-[#2c14e2]" : "bg-[#dc1c21]"
