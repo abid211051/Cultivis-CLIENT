@@ -18,7 +18,7 @@ export default function OverallForecast({ currentweather, hourlyweather }) {
     <>
       <div
         aria-label="location"
-        className="w-fit flex items-center gap-2 px-2 xl:py-1"
+        className="w-fit flex items-center gap-2 px-2 xl:py-1 rounded-md bg-[#8e715c]"
       >
         <MapPin size={15} strokeWidth={2} className="" />
         <p className="text-sm uppercase line-clamp-1 ">
@@ -30,12 +30,12 @@ export default function OverallForecast({ currentweather, hourlyweather }) {
         aria-label="temperature"
         className="flex justify-around items-center py-1"
       >
-        <div className="flex items-center gap-2  px-2 xl:py-1">
+        <div className="flex items-center gap-2  px-2 xl:py-1 bg-[#8e715c] rounded-xl">
           <span className="text-6xl ">
             {parseInt(currentweather?.main?.temp) || "N/A"} &#176;C
           </span>
         </div>
-        <div className="px-2 xl:py-1">
+        <div className="px-2 xl:py-1 bg-[#8e715c] rounded-md">
           <p className="text-xs text-center">
             {currentweather?.weather?.[0]?.description || "N/A"}
           </p>
@@ -47,11 +47,14 @@ export default function OverallForecast({ currentweather, hourlyweather }) {
           />
         </div>
       </div>
-      <div aria-label="other weather metrics" className="xl:py-1 rounded-b-md">
+      <div
+        aria-label="other weather metrics"
+        className="xl:py-1 rounded-b-md bg-[#8e715c] text-white"
+      >
         <div className="flex xl:justify-around justify-between items-center px-2">
           <div>
             <div className="flex items-center gap-1 ">
-              <Waves size={15} className="text-orange-300" />
+              <Waves size={15} className="text-amber-500" />
               <span className="text-xs">Humidity</span>
             </div>
             <p className="text-sm font-medium">
@@ -60,7 +63,7 @@ export default function OverallForecast({ currentweather, hourlyweather }) {
           </div>
           <div>
             <div className="flex items-center gap-1">
-              <Droplet size={15} className="text-orange-300" />
+              <Droplet size={15} className="text-amber-500" />
               <span className="text-xs">Precipitation</span>
             </div>
             <p className="text-sm font-font-medium">
@@ -72,7 +75,7 @@ export default function OverallForecast({ currentweather, hourlyweather }) {
           </div>
           <div>
             <div className="flex items-center gap-1">
-              <WindArrowDown size={15} className="text-orange-300" />
+              <WindArrowDown size={15} className="text-amber-500" />
               <span className="text-xs">Pressure</span>
             </div>
             <p className="text-sm font-medium">
@@ -81,7 +84,7 @@ export default function OverallForecast({ currentweather, hourlyweather }) {
           </div>
           <div>
             <div className="flex items-center gap-1">
-              <Wind size={15} className="text-orange-300" />
+              <Wind size={15} className="text-amber-500" />
               <span className="text-xs">Wind</span>
             </div>
             <p className="text-sm font-medium">

@@ -1,5 +1,5 @@
 import "@/app/globals.css";
-import { AppSidebar } from "@/components/app-sidebar";
+import { AppSidebar } from "@/components/appsidebar/app-sidebar";
 import { isvalid } from "@/app/api/auth/sessionCheck";
 import {
   SidebarInset,

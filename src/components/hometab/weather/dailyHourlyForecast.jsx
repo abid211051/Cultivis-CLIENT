@@ -25,9 +25,9 @@ export default function DailyHourlyForecast({ hourlyweather }) {
         <button
           className={`flex-1 ${
             toggleForecast === "hourly"
-              ? "bg-[#2d65ff] text-white font-semibold"
+              ? "bg-[#d6976c] text-white font-semibold"
               : ""
-          } p-1 font-medium transition-all`}
+          } p-1 font-medium transition-all rounded-md`}
           value={"hourly"}
           onClick={(e) => (setToggleForecast("hourly"), getForecastData(e))}
         >
@@ -36,16 +36,16 @@ export default function DailyHourlyForecast({ hourlyweather }) {
         <button
           className={`flex-1 ${
             toggleForecast === "daily"
-              ? "bg-[#2d65ff] text-white font-semibold"
+              ? "bg-[#d6976c] text-white font-semibold"
               : ""
-          } p-1 font-medium transition-all`}
+          } p-1 font-medium transition-all rounded-md`}
           value={"daily"}
           onClick={(e) => (setToggleForecast("daily"), getForecastData(e))}
         >
           Daily
         </button>
       </div>
-      <div className="flex xl:justify-around justify-between items-center border-t-[1px]">
+      <div className="flex xl:justify-around justify-between items-center">
         {data?.length > 0 ? (
           data.map((item) => (
             <div
