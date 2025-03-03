@@ -1,15 +1,14 @@
 "use client";
+
 import * as React from "react";
 import {
-  BrainCircuit,
+  Bot,
   Home,
-  ClipboardList,
-  Wallet2,
-  Users,
-  Rss,
+  Calendar,
+  Newspaper,
+  Handshake,
   MessageCircleQuestion,
-  Map,
-  Settings2,
+  Settings,
 } from "lucide-react";
 
 import { NavMain } from "@/components/nav-main";
@@ -21,22 +20,24 @@ import {
   SidebarContent,
   SidebarFooter,
   SidebarHeader,
+  SidebarRail,
 } from "@/components/ui/sidebar";
 
 // This is sample data.
 const data = {
   teams: [
     {
-      name: "Cultivis",
+      name: "CultiVis",
       logo: "/CultiVis.png",
-      plan: "System",
+      plan: "Startup",
     },
   ],
   navMain: [
     {
       name: "Ask Quo",
       url: "/dashboard/quo",
-      icon: BrainCircuit,
+      icon: Bot,
+      isActive: true,
     },
     {
       name: "Home",
@@ -44,30 +45,22 @@ const data = {
       icon: Home,
     },
     {
-      name: "My Field",
-      url: "/dashboard/myfield",
-      icon: Map,
-    },
-    {
-      name: "Task",
+      name: "Tasks",
       url: "/dashboard/task",
-      icon: ClipboardList,
-    },
-    {
-      name: "Expense",
-      url: "/dashboard/expense",
-      icon: Wallet2,
-    },
-    {
-      name: "Community",
-      url: "/dashboard/community",
-      icon: Users,
+      icon: Calendar,
     },
     {
       name: "News",
       url: "/dashboard/news",
-      icon: Rss,
+      icon: Newspaper,
     },
+    {
+      name: "Community",
+      url: "/dashboard/community",
+      icon: Handshake,
+    },
+  ],
+  projects: [
     {
       name: "Feedback",
       url: "#",
@@ -76,24 +69,30 @@ const data = {
     {
       name: "Settings",
       url: "#",
-      icon: Settings2,
+      icon: Settings,
     },
   ],
 };
 
 export function AppSidebar({ ...props }) {
   return (
-    <Sidebar collapsible="icon" {...props}>
-      <SidebarHeader className="bg-white text-black">
+    <Sidebar
+      collapsible="icon"
+      {...props}
+      variant="floating"
+      className="bg-[#b2bccd]"
+    >
+      <SidebarHeader>
         <TeamSwitcher teams={data.teams} />
       </SidebarHeader>
-      <SidebarContent className="bg-[#b2bccd] text-black border-b-2 transition-all">
+      <SidebarContent>
         <NavMain items={data.navMain} />
-        <div className="flex-1 bg-white">s</div>
+        <NavProjects projects={data.projects} />
       </SidebarContent>
-      <SidebarFooter className="bg-white text-black">
-        <NavUser user={props.userdata} />
+      <SidebarFooter>
+        <NavUser user={props?.userdata} />
       </SidebarFooter>
+      <SidebarRail />
     </Sidebar>
   );
 }

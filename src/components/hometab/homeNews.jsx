@@ -5,7 +5,7 @@ import { ScrollArea } from "../ui/scroll-area";
 
 export default function HomeNews() {
   return (
-    <div className="w-[100%]  bg-[#b2bccd] lg:row-start-2 lg:row-span-1 lg:col-start-1 lg:col-span-7 flex flex-col lg:mb-0 mb-5">
+    <div className="w-[100%] bg-[#b2bccd] lg:row-start-2 lg:row-span-1 lg:col-start-1 lg:col-span-7 flex flex-col lg:mb-0 mb-5">
       <div className="flex">
         <div className="flex-1 bg-white flex justify-center items-center rounded-tr-xl rounded-tl-xl">
           <div className="flex items-center gap-2 flex-1 bg-[#ffffff] px-2">

@@ -77,7 +77,7 @@ export default function HomeTask() {
       className="w-[100%] mx-auto lg:row-start-1 lg:row-span-1 lg:col-start-7 lg:col-span-5  flex flex-col  lg:mb-0 mb-5"
       aria-label="Quick Task view section"
     >
-      <div className="flex h-full">
+      <div className="flex">
         <div className="flex-1 bg-white flex justify-center items-center rounded-tr-xl rounded-tl-xl">
           <div className="flex items-center gap-2 flex-1 bg-[#ffffff] px-2">
             <ClipboardList
