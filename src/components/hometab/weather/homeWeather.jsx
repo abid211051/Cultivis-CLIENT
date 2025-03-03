@@ -12,7 +12,8 @@ export default async function HomeWeather() {
 
   return (
     <div
-      className={`${play.className} text-white bg-[url('/field2-min.png')] bg-cover bg-center lg:row-start-1 lg:row-span-1 lg:col-start-1 lg:col-span-6 rounded-xl  flex flex-col justify-between p-2 lg:m-0 mb-5`}
+      // url('/field2-min.png')
+      className={`${play.className} w-[100%] mx-auto text-black bg-[#ffffff] bg-cover bg-center lg:row-start-1 lg:row-span-1 lg:col-start-1 lg:col-span-6  flex flex-col justify-between p-2 lg:mb-0 mb-5 rounded-xl`}
     >
       <OverallForecast
         currentweather={currentweather}
