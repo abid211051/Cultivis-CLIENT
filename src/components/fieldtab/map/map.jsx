@@ -14,8 +14,8 @@ export default function Map() {
     []
   );
   return (
-    <>
+    <div className="w-[100%] lg:h-auto h-[350px] lg:row-start-1 lg:row-span-3 lg:col-start-1 lg:col-span-4 lg:mb-0 mb-5">
       <MainMap />
-    </>
+    </div>
   );
 }

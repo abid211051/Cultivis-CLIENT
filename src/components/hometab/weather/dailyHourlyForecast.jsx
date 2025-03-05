@@ -1,53 +1,58 @@
 "use client";
 import Image from "next/image";
 import { useState } from "react";
+import { Slash } from "lucide-react";
 import { hourlyWeather, dailyWeather } from "@/app/api/weatherData/actions";
 
 export default function DailyHourlyForecast({ hourlyweather }) {
   const [data, setData] = useState(hourlyweather);
   const [toggleForecast, setToggleForecast] = useState("hourly");
-  async function getForecastData(e) {
+  async function getForecastData(val) {
     try {
-      let newdata = null;
-      if (e.target.value === "hourly") {
-        newdata = await hourlyWeather();
-      } else {
-        newdata = await dailyWeather();
-      }
-      setData(newdata);
+      const newdata =
+        val === "hourly" ? await hourlyWeather() : await dailyWeather();
+      setData(newdata || []);
+      setToggleForecast(val);
     } catch (error) {
       console.log(error.message);
     }
   }
   return (
     <>
-      <div className="w-full flex justify-between p-1">
-        <button
-          className={`flex-1 ${
-            toggleForecast === "hourly"
-              ? "bg-[#d6976c] text-white font-semibold"
-              : ""
-          } p-1 font-medium transition-all rounded-md`}
-          value={"hourly"}
-          onClick={(e) => (setToggleForecast("hourly"), getForecastData(e))}
-        >
-          Hourly
-        </button>
-        <button
-          className={`flex-1 ${
-            toggleForecast === "daily"
-              ? "bg-[#d6976c] text-white font-semibold"
-              : ""
-          } p-1 font-medium transition-all rounded-md`}
-          value={"daily"}
-          onClick={(e) => (setToggleForecast("daily"), getForecastData(e))}
-        >
-          Daily
-        </button>
+      <div className="w-full flex justify-between rounded-xl bg-[#181f26] py-1.5">
+        <div className="border-2 border-[#45484a] h-[40px] flex w-full rounded-md bg-[#181f26] text-white">
+          <button
+            className="flex-1 hover:bg-[#242e38] rounded-l-md cursor-pointer"
+            onClick={() => getForecastData("hourly")}
+          >
+            <p
+              className={`${
+                toggleForecast === "hourly" &&
+                "text-[#3cc1ff] border-b-2 border-[#3cc1ff]"
+              } h-full w-fit mx-auto pt-1`}
+            >
+              Hourly
+            </p>
+          </button>
+          <Slash className="-rotate-45 text-center translate-y-1.5 text-[#45484a]" />
+          <button
+            className="flex-1 hover:bg-[#242e38] rounded-r-md cursor-pointer"
+            onClick={() => getForecastData("daily")}
+          >
+            <p
+              className={`${
+                toggleForecast === "daily" &&
+                "text-[#3cc1ff] border-b-2 border-[#3cc1ff]"
+              }  h-full w-fit mx-auto pt-1`}
+            >
+              Daily
+            </p>
+          </button>
+        </div>
       </div>
-      <div className="flex xl:justify-around justify-between items-center">
+      <div className="flex xl:justify-around justify-between items-center bg-[#323d49] p-0.5 rounded-md">
         {data?.length > 0 ? (
-          data.map((item) => (
+          data?.map((item) => (
             <div
               key={item?.dt}
               className="flex flex-col justify-center items-center  px-1 rounded-md"

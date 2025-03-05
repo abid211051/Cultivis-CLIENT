@@ -140,7 +140,7 @@ export default function HomeTask() {
           {selectedDays.map((day, index) => (
             <CarouselItem
               key={index}
-              className="flex flex-col basis-1/5 lg:basis-1/5 items-center"
+              className="flex flex-col basis-1/5 items-center"
             >
               <span className="text-xs">{format(day, "EEE")}</span>
               <span className="text-sm font-semibold ">{format(day, "d")}</span>

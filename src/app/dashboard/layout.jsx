@@ -21,7 +21,7 @@ export default async function Layout({ children }) {
           <header className="lg:h-[5%] h-[40px] flex items-center">
             <SidebarTrigger className="ml-2 2xl:hidden" />
           </header>
-          <div className="lg:h-[95%] py-3 xl:py-5 xl:pr-5 xl:pl-3 lg:pr-3 lg:pl-1 p-2">
+          <div className="lg:h-[95%] py-3 xl:py-3 xl:pr-5 xl:pl-3 lg:pr-3 lg:pl-1 p-2">
             {children}
           </div>
         </SidebarInset>

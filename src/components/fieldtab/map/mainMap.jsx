@@ -6,9 +6,9 @@ export default function MainMap() {
   return (
     <>
       <MapContainer
-        center={[51.505, -0.09]}
-        zoom={13}
-        className="w-[100%] lg:h-auto h-[350px] lg:row-start-1 lg:row-span-4 lg:col-start-1 lg:col-span-4 lg:mb-0 mb-5 rounded-xl -z-0"
+        center={[22.9932327, 91.3706077]}
+        zoom={18}
+        className="w-full h-full rounded-xl z-40"
       >
         <TileLayer
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
