@@ -28,7 +28,7 @@ export default function OverallForecast({ currentweather, hourlyweather }) {
         className="flex justify-around items-center py-1"
       >
         <div className="flex items-center gap-2 rounded-xl">
-          <span className="lg:text-6xl text-4xl">
+          <span className="lg:text-6xl text-5xl">
             {parseInt(currentweather?.main?.temp) || "N/A"} &#176;C
           </span>
         </div>
