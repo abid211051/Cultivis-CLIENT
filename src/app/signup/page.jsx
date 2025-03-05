@@ -1,4 +1,4 @@
-import IntroNav from "@/components/intro-nav";
+import IntroNav from "@/components/appsidebar/intro-nav";
 import { SignupForm } from "@/components/loginsignup/signup-form";
 import { Suspense } from "react";
 

@@ -11,26 +11,26 @@ import { ScrollArea, ScrollBar } from "../ui/scroll-area";
 export default function HomeCropOverview() {
   return (
     <div className="w-[100%] bg-[#b2bccd] flex flex-col gap-2 lg:mb-0 mb-5 lg:row-start-2 lg:row-span-1 lg:col-start-8 lg:col-span-4">
-      <div className="flex flex-col">
+      <div className="flex flex-col text-white">
         <div className="flex">
-          <div className="flex-1 bg-white flex justify-center items-center rounded-tr-xl rounded-tl-xl">
-            <div className="flex items-center gap-2 flex-1 bg-[#ffffff] px-2">
+          <div className="flex-1 bg-[#868a73] flex justify-center items-center rounded-tr-xl rounded-tl-xl">
+            <div className="flex items-center gap-2 flex-1 bg-[#868a73] px-2">
               <Vegan
                 size={26}
                 strokeWidth={2}
-                className="rounded-md p-[2px] bg-white text-black border-[2px]"
+                className="rounded-md p-[2px] bg-[#868a73] text-white border-[2px]"
               />
               <span className="font-bold">Crop Health</span>
             </div>
           </div>
-          <div className="w-[100px] h-[50px] bg-white flex justify-center items-center rounded-tl-3xl rounded-tr-3xl rounded-br-3xl">
+          <div className="w-[100px] h-[50px] bg-[#868a73] flex justify-center items-center rounded-tl-3xl rounded-tr-3xl rounded-br-3xl">
             <Link href={"#"} className="navigation-btn-in">
               <span className="text-xs">View All</span>
               <SquareArrowOutUpRight size={18} strokeWidth={3} />
             </Link>
           </div>
         </div>
-        <span className="bg-white  text-4xl font-semibold xl:py-2 py-1 px-2 rounded-xl rounded-tl-none">
+        <span className="bg-[#868a73]  text-4xl font-semibold xl:py-2 py-1 px-2 rounded-xl rounded-tl-none">
           GOOD
         </span>
       </div>
