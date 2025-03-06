@@ -1,4 +1,4 @@
-import IntroNav from "@/components/intro-nav";
+import IntroNav from "@/components/appsidebar/intro-nav";
 import { LoginForm } from "@/components/loginsignup/login-form";
 import { Suspense } from "react";
 export default function Page() {

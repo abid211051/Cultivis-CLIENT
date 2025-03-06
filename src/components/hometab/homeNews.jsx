@@ -5,33 +5,33 @@ import { ScrollArea } from "../ui/scroll-area";
 
 export default function HomeNews() {
   return (
-    <div className="w-[100%] bg-[#b2bccd] lg:row-start-2 lg:row-span-1 lg:col-start-1 lg:col-span-7 flex flex-col lg:mb-0 mb-5">
+    <div className="w-[100%] lg:row-start-2 lg:row-span-1 lg:col-start-1 lg:col-span-7 flex flex-col lg:mb-0 mb-5">
       <div className="flex">
-        <div className="flex-1 bg-white flex justify-center items-center rounded-tr-xl rounded-tl-xl">
+        <div className="flex-1 bg-[#ffffff] flex justify-center items-center rounded-tr-xl rounded-tl-xl">
           <div className="flex items-center gap-2 flex-1 bg-[#ffffff] px-2">
             <Rss
               size={26}
               strokeWidth={2}
-              className="rounded-md p-[2px] bg-white text-black border-[2px]"
+              className="rounded-md p-[2px] bg-[#ffffff] text-black border-[2px]"
             />
             <span className="font-bold">News</span>
           </div>
         </div>
-        <div className="w-[100px] h-[50px] bg-white flex justify-center items-center rounded-tl-3xl rounded-tr-3xl rounded-br-3xl">
+        <div className="w-[100px] h-[50px] bg-[#ffffff] flex justify-center items-center rounded-tl-3xl rounded-tr-3xl rounded-br-3xl">
           <Link href={"#"} className="navigation-btn-in">
             <span className="text-xs">View All</span>
             <SquareArrowOutUpRight size={18} strokeWidth={3} />
           </Link>
         </div>
       </div>
-      <ScrollArea className="lg:h-full h-[300px] p-2 bg-white rounded-xl rounded-tl-none">
+      <ScrollArea className="lg:h-full h-[300px] p-2 bg-[#ffffff] rounded-xl rounded-tl-none ">
         {Array.from({ length: 10 }).map((_, index) => (
           <div
             key={index}
-            className="w-full grid grid-cols-4 items-center mb-3 gap-2 cursor-pointer group rounded-xl overflow-hidden"
+            className="bg-[#d8d8d8] px-2 w-full grid grid-cols-4 items-center mb-3 gap-2 cursor-pointer group rounded-xl overflow-hidden"
           >
             {/* w-[420px] */}
-            <div className="bg-[#d9dede] col-start-1 col-span-1 xl:h-[140px] h-[100px] overflow-hidden flex justify-center rounded-s-md">
+            <div className="col-start-1 col-span-1 xl:h-[140px] h-[100px] overflow-hidden flex justify-center rounded-s-md">
               <Image
                 src={index % 2 === 0 ? "/field2-min.png" : "/rainy.png"}
                 alt="img"
@@ -40,7 +40,7 @@ export default function HomeNews() {
                 className="w-auto object-contain h-full group-hover:scale-110 transition-transform"
               />
             </div>
-            <div className="lg:p-2 p-1 col-start-2 col-span-3 flex flex-col gap-1 justify-evenly xl:h-[140px] h-[100px] text-justify rounded-e-lg bg-[#d9dede]">
+            <div className="py-1 col-start-2 col-span-3 flex flex-col gap-1 justify-evenly xl:h-[140px] h-[100px] text-justify rounded-e-lg ">
               <p
                 className={`text-xs ${
                   index % 2 == 1 ? "bg-[#2c14e2]" : "bg-[#dc1c21]"

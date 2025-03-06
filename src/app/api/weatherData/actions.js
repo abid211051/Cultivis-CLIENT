@@ -2,12 +2,7 @@
 
 export async function currentWeather() {
   try {
-    const res = await fetch(
-      `${process.env.SERVER_URL}/weather/currentweather`,
-      {
-        next: { revalidate: 3600 },
-      }
-    );
+    const res = await fetch(`${process.env.SERVER_URL}/weather/currentweather`);
     const currentweather = await res.json();
     return currentweather;
   } catch (error) {
@@ -17,12 +12,7 @@ export async function currentWeather() {
 
 export async function hourlyWeather() {
   try {
-    const res = await fetch(
-      `${process.env.SERVER_URL}/weather/hourlyforecast`,
-      {
-        next: { revalidate: 3600 },
-      }
-    );
+    const res = await fetch(`${process.env.SERVER_URL}/weather/hourlyforecast`);
     const hourlyweather = await res.json();
 
     return hourlyweather;
@@ -33,9 +23,7 @@ export async function hourlyWeather() {
 
 export async function dailyWeather() {
   try {
-    const res = await fetch(`${process.env.SERVER_URL}/weather/dailyforecast`, {
-      next: { revalidate: 3600 },
-    });
+    const res = await fetch(`${process.env.SERVER_URL}/weather/dailyforecast`);
     const dailyweather = await res.json();
 
     return dailyweather;

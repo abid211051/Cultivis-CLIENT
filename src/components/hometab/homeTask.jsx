@@ -78,28 +78,28 @@ export default function HomeTask() {
       aria-label="Quick Task view section"
     >
       <div className="flex">
-        <div className="flex-1 bg-white flex justify-center items-center rounded-tr-xl rounded-tl-xl">
+        <div className="flex-1 bg-[#ffffff] flex justify-center items-center rounded-tr-xl rounded-tl-xl">
           <div className="flex items-center gap-2 flex-1 bg-[#ffffff] px-2">
             <ClipboardList
               size={26}
               strokeWidth={2}
-              className="rounded-md p-[2px] text-black bg-white border-[2px]"
+              className="rounded-md p-[2px] text-black bg-[#ffffff] border-[2px]"
             />
             <span className="font-bold">Tasks</span>
           </div>
         </div>
-        <div className="w-[100px] h-[50px] bg-white flex justify-center items-center rounded-tl-3xl rounded-tr-3xl rounded-br-3xl">
+        <div className="w-[100px] h-[50px] bg-[#ffffff] flex justify-center items-center rounded-tl-3xl rounded-tr-3xl rounded-br-3xl">
           <Link href={"#"} className="navigation-btn-in">
             <span className="text-xs">View All</span>
             <SquareArrowOutUpRight size={18} strokeWidth={3} />
           </Link>
         </div>
       </div>
-      <div className="px-3 bg-white rounded-tr-xl">
+      <div className="px-3 bg-[#ffffff] rounded-tr-xl">
         <div className="flex gap-1 border-b-2">
           <Select
             onValueChange={(e) => handleMonthChange(e)}
-            value={`${currentDate.getMonth()}`}
+            value={`${currentDate?.getMonth()}`}
           >
             <SelectTrigger className="w-[80px] px-1 border-r-2">
               <SelectValue placeholder="Month" />
@@ -107,9 +107,9 @@ export default function HomeTask() {
             <SelectContent>
               <SelectGroup>
                 <SelectLabel>Months</SelectLabel>
-                {months.map((month) => (
-                  <SelectItem key={month.value} value={`${month.value}`}>
-                    {month.label.substring(0, 3)}
+                {months?.map((month) => (
+                  <SelectItem key={month?.value} value={`${month?.value}`}>
+                    {month?.label?.substring(0, 3)}
                   </SelectItem>
                 ))}
               </SelectGroup>
@@ -117,7 +117,7 @@ export default function HomeTask() {
           </Select>
           <Select
             onValueChange={(e) => handleYearChange(e)}
-            value={`${currentDate.getFullYear()}`}
+            value={`${currentDate?.getFullYear()}`}
           >
             <SelectTrigger className="w-[80px] px-1">
               <SelectValue placeholder="Year" />
@@ -125,9 +125,9 @@ export default function HomeTask() {
             <SelectContent>
               <SelectGroup>
                 <SelectLabel>Years</SelectLabel>
-                {years.map((year) => (
-                  <SelectItem key={year.value} value={year.value}>
-                    {year.label}
+                {years?.map((year) => (
+                  <SelectItem key={year?.value} value={year?.value}>
+                    {year?.label}
                   </SelectItem>
                 ))}
               </SelectGroup>
@@ -135,12 +135,12 @@ export default function HomeTask() {
           </Select>
         </div>
       </div>
-      <Carousel className="max-w-full border-b-2 bg-white">
+      <Carousel className="max-w-full border-b-2 bg-[#ffffff]">
         <CarouselContent>
-          {selectedDays.map((day, index) => (
+          {selectedDays?.map((day, index) => (
             <CarouselItem
               key={index}
-              className="flex flex-col basis-1/5 lg:basis-1/5 items-center"
+              className="flex flex-col basis-1/5 items-center"
             >
               <span className="text-xs">{format(day, "EEE")}</span>
               <span className="text-sm font-semibold ">{format(day, "d")}</span>
@@ -148,7 +148,7 @@ export default function HomeTask() {
           ))}
         </CarouselContent>
       </Carousel>
-      <ScrollArea className="w-full lg:h-auto h-[200px] rounded-b-xl p-2  bg-white">
+      <ScrollArea className="w-full lg:h-auto h-[200px] rounded-b-xl p-2  bg-[#ffffff]">
         {Array.from({ length: 24 }, (_, i) =>
           i % 2 != 0 ? (
             <div key={i} className="mb-2 grid grid-cols-6 gap-2 text-justify">
@@ -158,7 +158,7 @@ export default function HomeTask() {
                 </span>
               </div>
               <div className="col-span-5 border-b-2 border-[#0b9466] border-dashed py-1">
-                <div className="flex items-start p-2 bg-[#d9dede] font-medium line-through text-black mb-1 rounded-md gap-2 h-full">
+                <div className="flex items-start p-2 bg-[#d8d8d8] font-medium line-through  mb-1 rounded-md gap-2 h-full">
                   <span className="line-clamp-4 text-sm">
                     Lorem, ipsum dolor sit amet consectetur adipisicing elit.
                     Modi ut possimus rerum a corrupti ducimus similique,
