@@ -1,6 +1,3 @@
-"use client";
-import React, { useState } from "react";
-import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -13,8 +10,8 @@ export default function CropInfo() {
   return (
     <div className="w-full rounded-xl bg-[#181f26] text-white p-1.5 grid lg:grid-cols-2 lg:grid-rows-1 gap-2">
       <div className="rounded-xl bg-[#181f26] border-2 border-[#45484a] lg:row-start-1 lg:row-span-1 lg:h-auto h-[250px]">
-        <div className="bg-[#323d49] rounded-t-md w-full h-[15%] flex items-center justify-center py-1.5 gap-2">
-          <h1>FIELD HISTORY</h1>
+        <div className="bg-[#303c47] rounded-t-xl w-full h-[15%] flex items-center justify-center py-1.5 gap-2">
+          <h6 className="text-sm">FIELD HISTORY</h6>
           <button>
             <Info size={20} />
           </button>
@@ -103,8 +100,8 @@ export default function CropInfo() {
         </ScrollArea>
       </div>
       <div className="rounded-xl bg-[#181f26] border-2 border-[#45484a] lg:row-start-1 lg:row-span-1 lg:h-auto h-[250px]">
-        <div className="bg-[#323d49] rounded-t-md w-full h-[15%] flex items-center justify-center py-1.5 gap-2">
-          <h1>GROWTH STAGE</h1>
+        <div className="bg-[#303c47] rounded-t-xl w-full h-[15%] flex items-center justify-center py-1.5 gap-2">
+          <h1 className="text-sm">GROWTH STAGE</h1>
           <button>
             <Info size={20} />
           </button>

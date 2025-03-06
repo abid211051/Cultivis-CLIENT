@@ -1,22 +1,26 @@
 "use client";
 import Image from "next/image";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Slash } from "lucide-react";
+import { toast } from "sonner";
 import { hourlyWeather, dailyWeather } from "@/app/api/weatherData/actions";
 
 export default function DailyHourlyForecast({ hourlyweather }) {
   const [data, setData] = useState(hourlyweather);
   const [toggleForecast, setToggleForecast] = useState("hourly");
   async function getForecastData(val) {
-    try {
-      const newdata =
-        val === "hourly" ? await hourlyWeather() : await dailyWeather();
-      setData(newdata || []);
-      setToggleForecast(val);
-    } catch (error) {
-      console.log(error.message);
+    const newdata =
+      val === "hourly" ? await hourlyWeather() : await dailyWeather();
+    if (newdata.error) {
+      toast.error("Failed to fetch weather data", {
+        richColors: true,
+        closeButton: true,
+      });
     }
+    setData(newdata);
+    setToggleForecast(val);
   }
+
   return (
     <>
       <div className="w-full flex justify-between rounded-xl bg-[#181f26] py-1.5">

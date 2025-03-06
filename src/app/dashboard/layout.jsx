@@ -7,15 +7,6 @@ import {
   SidebarTrigger,
 } from "@/components/ui/sidebar";
 
-import { Roboto } from "next/font/google";
-
-// If loading a variable font, you don't need to specify the font weight
-const roboto = Roboto({
-  weight: "400",
-  subsets: ["latin"],
-  display: "swap",
-});
-
 export const metadata = {
   title: "Dasboard",
   description: "A helper for better farming and community",
@@ -31,7 +22,7 @@ export default async function Layout({ children }) {
             <SidebarTrigger className="ml-2 2xl:hidden" />
           </header>
           <div
-            className={`${roboto.className} lg:h-[95%] py-3 xl:py-3 xl:pr-5 xl:pl-3 lg:pr-3 lg:pl-1 p-2`}
+            className={`lg:h-[95%] py-3 xl:py-3 xl:pr-5 xl:pl-3 lg:pr-3 lg:pl-1 p-2`}
           >
             {children}
           </div>

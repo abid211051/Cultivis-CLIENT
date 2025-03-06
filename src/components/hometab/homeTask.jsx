@@ -99,7 +99,7 @@ export default function HomeTask() {
         <div className="flex gap-1 border-b-2">
           <Select
             onValueChange={(e) => handleMonthChange(e)}
-            value={`${currentDate.getMonth()}`}
+            value={`${currentDate?.getMonth()}`}
           >
             <SelectTrigger className="w-[80px] px-1 border-r-2">
               <SelectValue placeholder="Month" />
@@ -107,9 +107,9 @@ export default function HomeTask() {
             <SelectContent>
               <SelectGroup>
                 <SelectLabel>Months</SelectLabel>
-                {months.map((month) => (
-                  <SelectItem key={month.value} value={`${month.value}`}>
-                    {month.label.substring(0, 3)}
+                {months?.map((month) => (
+                  <SelectItem key={month?.value} value={`${month?.value}`}>
+                    {month?.label?.substring(0, 3)}
                   </SelectItem>
                 ))}
               </SelectGroup>
@@ -117,7 +117,7 @@ export default function HomeTask() {
           </Select>
           <Select
             onValueChange={(e) => handleYearChange(e)}
-            value={`${currentDate.getFullYear()}`}
+            value={`${currentDate?.getFullYear()}`}
           >
             <SelectTrigger className="w-[80px] px-1">
               <SelectValue placeholder="Year" />
@@ -125,9 +125,9 @@ export default function HomeTask() {
             <SelectContent>
               <SelectGroup>
                 <SelectLabel>Years</SelectLabel>
-                {years.map((year) => (
-                  <SelectItem key={year.value} value={year.value}>
-                    {year.label}
+                {years?.map((year) => (
+                  <SelectItem key={year?.value} value={year?.value}>
+                    {year?.label}
                   </SelectItem>
                 ))}
               </SelectGroup>
@@ -137,7 +137,7 @@ export default function HomeTask() {
       </div>
       <Carousel className="max-w-full border-b-2 bg-[#ffffff]">
         <CarouselContent>
-          {selectedDays.map((day, index) => (
+          {selectedDays?.map((day, index) => (
             <CarouselItem
               key={index}
               className="flex flex-col basis-1/5 items-center"
