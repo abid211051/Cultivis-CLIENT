@@ -12,7 +12,7 @@ export default function DailyHourlyForecast({ hourlyweather }) {
     const newdata =
       val === "hourly" ? await hourlyWeather() : await dailyWeather();
     if (newdata.error) {
-      toast.error("Failed to fetch weather data", {
+      toast.error("No Weather Data Found", {
         richColors: true,
         closeButton: true,
       });
