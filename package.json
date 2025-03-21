@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "postinstall": "npm install react-leaflet-draw --legacy-peer-deps",
+    "postinstall": "npm install --legacy-peer-deps",
     "dev": "next dev --turbopack",
     "build": "next build",
     "start": "next start",
