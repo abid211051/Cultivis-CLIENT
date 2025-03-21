@@ -142,4 +142,7 @@
     box-shadow: 0px -0.6px 0px 5.5px #b2bccd;
     border-radius: 1rem;
   }
+  .sr-only {
+    display: none;
+  }
 }
