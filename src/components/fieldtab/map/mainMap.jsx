@@ -1,5 +1,5 @@
 import { useRef, useEffect, useState } from "react";
-import { MapContainer, TileLayer, FeatureGroup } from "react-leaflet";
+import { MapContainer, TileLayer, FeatureGroup, Polygon } from "react-leaflet";
 import { EditControl } from "react-leaflet-draw";
 import {
   createPolygon,
@@ -164,9 +164,9 @@ export default function MainMap({ userId }) {
       <FeatureGroup ref={featureGroupRef}>
         <EditControl
           position="topright"
-          onDrawStop={createPoly}
-          onEditStop={editPoly}
-          onDeleteStop={deletePoly}
+          onCreated={createPoly}
+          onEdited={editPoly}
+          onDeleted={deletePoly}
           draw={{
             rectangle: false,
             circle: false,
