@@ -1,4 +1,5 @@
 "use server";
+import "dotenv/config";
 
 export async function currentWeather() {
   try {

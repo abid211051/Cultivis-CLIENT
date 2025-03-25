@@ -1,48 +1,155 @@
-"use client";
-import { useEffect, useRef, useState } from "react";
-import { MapContainer, TileLayer, FeatureGroup, Polygon } from "react-leaflet";
+import { useRef, useEffect, useState } from "react";
+import { MapContainer, TileLayer, FeatureGroup } from "react-leaflet";
 import { EditControl } from "react-leaflet-draw";
+import {
+  createPolygon,
+  editPolygon,
+  getPolygon,
+  deletePolygon,
+} from "@/app/api/map/action";
+import { toast } from "sonner";
 
-export default function MainMap() {
+export default function MainMap({ userId }) {
   const [field, setField] = useState(null);
+  const featureGroupRef = useRef(null);
+
   useEffect(() => {
-    const savedField = JSON.parse(localStorage.getItem("polygon"));
-    setField(savedField || null);
+    async function fetchdata() {
+      if (!userId) {
+        return;
+      }
+      const res = await getPolygon(userId);
+      if (!res?.error) {
+        setField(res);
+      } else {
+        toast.error(res?.error, { richColors: true, closeButton: true });
+      }
+    }
+    fetchdata();
   }, []);
 
-  const savePolygon = (polygon) => {
-    setField(polygon);
-    localStorage.setItem("polygon", JSON.stringify(polygon));
-  };
+  useEffect(() => {
+    if (featureGroupRef.current && field?.polygon) {
+      const layerGroup = featureGroupRef.current;
+      layerGroup.clearLayers();
+      L.polygon(field.polygon.corrdinates, {
+        color: "blue",
+        weight: 1.5,
+      }).addTo(layerGroup);
+    }
+  }, [field]);
 
-  const createPoly = (e) => {
-    const corrdinates = e?.layer?._latlngs[0].map((item) => [
-      item?.lat,
-      item?.lng,
-    ]);
-    const id = e?.layer?._leaflet_id;
-    savePolygon({ id, corrdinates });
-    e?.layer?.remove();
-  };
+  const createPoly = async (e) => {
+    try {
+      const corrdinates = e.layer
+        .getLatLngs()[0]
+        .map((item) => [item.lat, item.lng]);
+      const polyid = e.layer._leaflet_id;
 
-  const editPoly = (e) => {
-    if (Object.keys(e?.layers?._layers).length) {
-      e?.layers?.eachLayer((layer) => {
-        const corrdinates = layer?._latlngs[0].map((item) => [
-          item?.lat,
-          item?.lng,
-        ]);
-        const id = layer?._leaflet_id;
-        savePolygon({ id, corrdinates });
+      if (!userId || !corrdinates || !polyid) {
+        throw Error("Something Went Wrong");
+      }
+      const res = await createPolygon({
+        userId,
+        polygon: { polyid, corrdinates },
       });
+
+      if (!res?.error) {
+        toast.success("Polygon Created", {
+          richColors: true,
+          closeButton: true,
+        });
+        setField(res);
+      } else {
+        throw Error(res?.error);
+      }
+      e.layer.remove();
+    } catch (error) {
+      e.layer.remove();
+      toast.error(error?.message, { richColors: true, closeButton: true });
     }
   };
-  const deletePoly = (e) => {
+
+  const editPoly = async (e) => {
+    let originalCoordinates = field?.polygon?.corrdinates || [];
+    let editedCoordinates;
+    let polyid;
     if (Object.keys(e?.layers?._layers).length) {
-      setField(null);
-      localStorage.clear();
+      e.layers.eachLayer((layer) => {
+        editedCoordinates = layer
+          .getLatLngs()[0]
+          .map((item) => [item.lat, item.lng]);
+        polyid = layer._leaflet_id;
+      });
+
+      try {
+        if (!field?.id || !editedCoordinates) {
+          throw new Error("Something Went Wrong");
+        }
+
+        const res = await editPolygon(field?.id, {
+          polygon: { polyid, corrdinates: editedCoordinates },
+        });
+
+        if (!res?.error) {
+          toast.success("Polygon Updated", {
+            richColors: true,
+            closeButton: true,
+          });
+          setField(res);
+        } else {
+          throw new Error(res?.error);
+        }
+      } catch (error) {
+        toast.error(error?.message || "Edit failed", {
+          richColors: true,
+          closeButton: true,
+        });
+        if (featureGroupRef.current) {
+          featureGroupRef.current.clearLayers();
+          L.polygon(originalCoordinates, { color: "blue", weight: 1.5 }).addTo(
+            featureGroupRef.current
+          );
+        }
+      }
     }
   };
+
+  const deletePoly = async (e) => {
+    let deletedPolygon = field?.polygon;
+    try {
+      if (!field?.id) {
+        throw new Error("Something Went Wrong");
+      }
+
+      if (Object.keys(e.layers._layers).length) {
+        const res = await deletePolygon(field?.id);
+
+        if (!res?.error) {
+          toast.success("Polygon Deleted", {
+            richColors: true,
+            closeButton: true,
+          });
+          setField(null);
+        } else {
+          throw new Error(res?.error);
+        }
+      }
+    } catch (error) {
+      toast.error(error?.message || "Delete failed", {
+        richColors: true,
+        closeButton: true,
+      });
+      if (featureGroupRef.current && deletedPolygon?.corrdinates) {
+        featureGroupRef.current.clearLayers();
+        L.polygon(deletedPolygon.corrdinates, {
+          color: "blue",
+          weight: 1.5,
+        }).addTo(featureGroupRef.current);
+      }
+    }
+  };
+
   return (
     <MapContainer
       center={[22.9932327, 91.3706077]}
@@ -54,15 +161,7 @@ export default function MainMap() {
         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
       />
 
-      <FeatureGroup>
-        {field && (
-          <Polygon
-            key={field?.id}
-            positions={field?.corrdinates || []}
-            color="Blue"
-            weight={1.5}
-          />
-        )}
+      <FeatureGroup ref={featureGroupRef}>
         <EditControl
           position="topright"
           onCreated={createPoly}
@@ -75,7 +174,7 @@ export default function MainMap() {
             marker: false,
             polyline: false,
             polygon:
-              field?.corrdinates?.length > 0
+              field?.polygon?.corrdinates?.length > 0
                 ? false
                 : {
                     allowIntersection: false,

@@ -4,10 +4,10 @@ import Fields from "@/components/fieldtab/fieldinfo/fields";
 import Map from "@/components/fieldtab/map/map";
 
 export default async function Page() {
-  await isvalid();
+  const user = await isvalid();
   return (
     <div className="h-full grid lg:grid-rows-5 lg:grid-cols-6 grid-cols-1 xl:gap-3 gap-3">
-      <Map />
+      <Map userId={user.user.id} />
       <Fields />
       <CropContainer />
     </div>

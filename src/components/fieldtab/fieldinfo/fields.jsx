@@ -1,5 +1,5 @@
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { CirclePlus, MapPlus, Info } from "lucide-react";
+import { MapPlus, Info } from "lucide-react";
 import Image from "next/image";
 
 export default function Fields() {
@@ -12,9 +12,6 @@ export default function Fields() {
               <MapPlus size={20} />
               <span className="text-[#f4a362]">Fields</span>
             </div>
-            <button>
-              <CirclePlus />
-            </button>
           </div>
           <ScrollArea className={"flex-1 h-[80%] p-1.5"}>
             <div className="flex bg-[#212930] rounded-md border-2 border-[#45484a] mb-1.5">
