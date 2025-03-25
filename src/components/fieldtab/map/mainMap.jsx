@@ -164,9 +164,9 @@ export default function MainMap({ userId }) {
       <FeatureGroup ref={featureGroupRef}>
         <EditControl
           position="topright"
-          onCreated={createPoly}
-          onEdited={editPoly}
-          onDeleted={deletePoly}
+          onDrawStop={createPoly}
+          onEditStop={editPoly}
+          onDeleteStop={deletePoly}
           draw={{
             rectangle: false,
             circle: false,
