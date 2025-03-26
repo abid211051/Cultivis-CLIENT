@@ -10,12 +10,12 @@ export async function getPolygon(userId) {
   }
 }
 
-export async function createPolygon(field) {
+export async function createPolygon(data) {
   try {
     const res = await fetch(`${process.env.SERVER_URL}/map/createpoly`, {
       method: "POST",
       headers: { "content-type": "application/json" },
-      body: JSON.stringify(field),
+      body: JSON.stringify(data),
     });
     return await res.json();
   } catch (error) {
@@ -23,12 +23,14 @@ export async function createPolygon(field) {
   }
 }
 
-export async function editPolygon(id, field) {
+export async function editPolygon(id, data) {
   try {
+    console.log(id, data);
+
     const res = await fetch(`${process.env.SERVER_URL}/map/editpoly/${id}`, {
       method: "PUT",
       headers: { "content-type": "application/json" },
-      body: JSON.stringify(field),
+      body: JSON.stringify(data),
     });
     return await res.json();
   } catch (error) {
