@@ -25,13 +25,12 @@ export async function createPolygon(data) {
 
 export async function editPolygon(id, data) {
   try {
-    console.log(id, data);
-
     const res = await fetch(`${process.env.SERVER_URL}/map/editpoly/${id}`, {
       method: "PUT",
       headers: { "content-type": "application/json" },
       body: JSON.stringify(data),
     });
+
     return await res.json();
   } catch (error) {
     return { error: error?.message };

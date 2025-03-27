@@ -13,11 +13,10 @@ import { useCallback, useEffect, useRef, useState } from "react";
 export default function MainMap({ userId }) {
   const [field, setField] = useState(null);
   const featureGroupRef = useRef(null);
-
+  let ii = [];
   useEffect(() => {
     async function fetchdata() {
       if (!userId) return;
-
       const res = await getPolygon(userId);
       if (!res?.error) {
         setField(res);
@@ -32,7 +31,6 @@ export default function MainMap({ userId }) {
     if (featureGroupRef.current && field?.polygon) {
       const layerGroup = featureGroupRef.current;
       layerGroup.clearLayers();
-      // Fix: Correct spelling to 'coordinates'
       L.polygon(field.polygon.coordinates || [], {
         color: "blue",
         weight: 1.5,
@@ -43,22 +41,17 @@ export default function MainMap({ userId }) {
   const createPoly = useCallback(
     async (e) => {
       try {
-        // Fix: Correct spelling to 'coordinates'
         const coordinates = e.layer
           .getLatLngs()[0]
           .map((item) => [item.lat, item.lng]);
         const polyid = e.layer._leaflet_id;
-
         if (!userId || !coordinates || !polyid) {
           throw new Error("Something Went Wrong");
         }
-
-        // Fix: Correct spelling to 'coordinates'
         const res = await createPolygon({
           userId,
           polygon: { polyid, coordinates },
         });
-
         if (!res?.error) {
           toast.success("Polygon Created", {
             richColors: true,
@@ -79,25 +72,21 @@ export default function MainMap({ userId }) {
 
   const editPoly = useCallback(
     async (e) => {
-      let editedCoordinates, polyid;
-      if (Object.keys(e?.layers?._layers).length && field) {
+      let coordinates, polyid;
+      if (Object.keys(e?.layers?._layers).length && field && ii.length < 1) {
         e.layers.eachLayer((layer) => {
-          editedCoordinates = layer
+          coordinates = layer
             .getLatLngs()[0]
             .map((item) => [item.lat, item.lng]);
           polyid = layer._leaflet_id;
         });
-
         try {
-          if (!field?.id || !editedCoordinates) {
+          if (!field?.id || !coordinates) {
             throw new Error("Something Went Wrong");
           }
-
-          // Fix: Correct spelling to 'coordinates'
           const res = await editPolygon(field?.id, {
-            polygon: { polyid, coordinates: editedCoordinates },
+            polygon: { polyid, coordinates },
           });
-
           if (!res?.error) {
             toast.success("Polygon Updated", {
               richColors: true,
@@ -120,22 +109,20 @@ export default function MainMap({ userId }) {
 
   const deletePoly = useCallback(
     async (e) => {
-      let deletedPolygon = field?.polygon;
-
       try {
-        if (!field?.id) throw new Error("Something Went Wrong");
-
-        if (Object.keys(e.layers._layers).length) {
-          const res = await deletePolygon(field?.id);
-
-          if (!res?.error) {
-            toast.success("Polygon Deleted", {
-              richColors: true,
-              closeButton: true,
-            });
-            setField(null);
-          } else {
-            throw new Error(res?.error);
+        if (Object.keys(e.layers._layers).length && field) {
+          ii.push(field.id);
+          if (ii.length < 2) {
+            const res = await deletePolygon(field?.id);
+            if (!res?.error) {
+              toast.success("Polygon Deleted", {
+                richColors: true,
+                closeButton: true,
+              });
+              setField(null);
+            } else {
+              throw new Error(res?.error);
+            }
           }
         }
       } catch (error) {
@@ -143,15 +130,6 @@ export default function MainMap({ userId }) {
           richColors: true,
           closeButton: true,
         });
-
-        // Fix: Correct spelling to 'coordinates'
-        if (featureGroupRef.current && deletedPolygon?.coordinates) {
-          featureGroupRef.current.clearLayers();
-          L.polygon(deletedPolygon.coordinates, {
-            color: "blue",
-            weight: 1.5,
-          }).addTo(featureGroupRef.current);
-        }
       }
     },
     [field?.id, userId]
