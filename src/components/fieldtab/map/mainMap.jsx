@@ -8,39 +8,33 @@ import {
 } from "@/app/api/map/action";
 import { toast } from "sonner";
 import { FeatureGroup, MapContainer, TileLayer } from "react-leaflet";
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useContext, useEffect, useRef, useState } from "react";
+import { mapContext } from "@/context/mapcontext";
 
 export default function MainMap({ userId }) {
+  const context = useContext(mapContext);
   const [field, setField] = useState(null);
   const featureGroupRef = useRef(null);
-  let ii = [];
-  useEffect(() => {
-    async function fetchdata() {
-      if (!userId) return;
-      const res = await getPolygon(userId);
-      if (!res?.error) {
-        setField(res);
-      } else {
-        toast.error(res?.error, { richColors: true, closeButton: true });
-      }
-    }
-    fetchdata();
-  }, [userId]);
+  let deletedPoly = [];
 
   useEffect(() => {
-    if (featureGroupRef.current && field?.polygon) {
+    if (featureGroupRef.current && context?.activeField?.polygon) {
       const layerGroup = featureGroupRef.current;
       layerGroup.clearLayers();
-      L.polygon(field.polygon.coordinates || [], {
+      L.polygon(context?.activeField?.polygon.coordinates || [], {
         color: "blue",
         weight: 1.5,
       }).addTo(layerGroup);
     }
-  }, [field]);
+  }, [context?.activeField]);
 
   const createPoly = useCallback(
     async (e) => {
       try {
+        const areaMeterSquare = L.GeometryUtil.geodesicArea(
+          e.layer.getLatLngs()[0]
+        );
+
         const coordinates = e.layer
           .getLatLngs()[0]
           .map((item) => [item.lat, item.lng]);
@@ -50,14 +44,15 @@ export default function MainMap({ userId }) {
         }
         const res = await createPolygon({
           userId,
-          polygon: { polyid, coordinates },
+          polygon: { polyid, coordinates, area: areaMeterSquare },
         });
         if (!res?.error) {
           toast.success("Polygon Created", {
             richColors: true,
             closeButton: true,
           });
-          setField(res);
+          context.setAllField((prev) => [...prev, res]);
+          context.setActiveField(res);
         } else {
           throw new Error(res?.error);
         }
@@ -73,7 +68,11 @@ export default function MainMap({ userId }) {
   const editPoly = useCallback(
     async (e) => {
       let coordinates, polyid;
-      if (Object.keys(e?.layers?._layers).length && field && ii.length < 1) {
+      if (
+        Object.keys(e?.layers?._layers).length &&
+        field &&
+        deletedPoly.length < 1
+      ) {
         e.layers.eachLayer((layer) => {
           coordinates = layer
             .getLatLngs()[0]
@@ -111,8 +110,8 @@ export default function MainMap({ userId }) {
     async (e) => {
       try {
         if (Object.keys(e.layers._layers).length && field) {
-          ii.push(field.id);
-          if (ii.length < 2) {
+          deletedPoly.push(field.id);
+          if (deletedPoly.length < 2) {
             const res = await deletePolygon(field?.id);
             if (!res?.error) {
               toast.success("Polygon Deleted", {
@@ -157,13 +156,11 @@ export default function MainMap({ userId }) {
             circlemarker: false,
             marker: false,
             polyline: false,
-            polygon: field
-              ? false
-              : {
-                  allowIntersection: false,
-                  showArea: true,
-                  shapeOptions: { color: "blue", weight: 1.5 },
-                },
+            polygon: {
+              allowIntersection: false,
+              showArea: true,
+              shapeOptions: { color: "blue", weight: 1.5 },
+            },
           }}
         />
       </FeatureGroup>
