@@ -20,7 +20,9 @@ export function MapContextProvider({ userId, children }) {
     }
     allPoly();
   }, [userId]);
-
+  useEffect(() => {
+    console.log(allField);
+  }, [allField]);
   return (
     <mapContext.Provider
       value={{ allField, activeField, setAllField, setActiveField }}

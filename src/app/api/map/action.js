@@ -47,3 +47,16 @@ export async function deletePolygon(id) {
     return { error: error?.message };
   }
 }
+
+export async function setCropInfo(data) {
+  try {
+    const res = await fetch(`${process.env.SERVER_URL}/map/setcropinfo`, {
+      method: "POST",
+      headers: { "content-type": "application/json" },
+      body: JSON.stringify(data),
+    });
+    return await res.json();
+  } catch (error) {
+    return { error: error?.message };
+  }
+}
