@@ -43,7 +43,7 @@ export default function CropChart() {
   }
   return (
     <div className="h-full w-full rounded-xl bg-[#181f26] text-white">
-      <div className="h-[15%] flex gap-5  p-1.5">
+      <div className="h-[12%] flex gap-5  p-1.5">
         <button
           className={`${
             charttype.includes("ndvi") && "text-[#2a9d90] font-semibold"
@@ -71,7 +71,7 @@ export default function CropChart() {
       </div>
       <ChartContainer
         config={chartConfig}
-        className={"lg:h-[85%] w-full m-0 p-0"}
+        className={"lg:h-[88%] w-full m-0 p-0"}
       >
         <LineChart
           accessibilityLayer

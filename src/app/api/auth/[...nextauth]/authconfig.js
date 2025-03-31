@@ -1,4 +1,4 @@
-import { NextAuthConfig } from "next-auth";
+import "dotenv/config";
 import dbConnect from "@/lib/db";
 import bcrypt from "bcryptjs";
 import CredentialsProvider from "next-auth/providers/credentials";

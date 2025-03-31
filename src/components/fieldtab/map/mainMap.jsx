@@ -1,48 +1,139 @@
-"use client";
-import { useEffect, useRef, useState } from "react";
-import { MapContainer, TileLayer, FeatureGroup, Polygon } from "react-leaflet";
+import L from "leaflet";
 import { EditControl } from "react-leaflet-draw";
+import {
+  createPolygon,
+  editPolygon,
+  getPolygon,
+  deletePolygon,
+} from "@/app/api/map/action";
+import { toast } from "sonner";
+import { FeatureGroup, MapContainer, TileLayer } from "react-leaflet";
+import { useCallback, useContext, useEffect, useRef, useState } from "react";
+import { mapContext } from "@/context/mapcontext";
 
-export default function MainMap() {
+export default function MainMap({ userId }) {
+  const context = useContext(mapContext);
   const [field, setField] = useState(null);
+  const featureGroupRef = useRef(null);
+  let deletedPoly = [];
+
   useEffect(() => {
-    const savedField = JSON.parse(localStorage.getItem("polygon"));
-    setField(savedField || null);
-  }, []);
-
-  const savePolygon = (polygon) => {
-    setField(polygon);
-    localStorage.setItem("polygon", JSON.stringify(polygon));
-  };
-
-  const createPoly = (e) => {
-    const corrdinates = e?.layer?._latlngs[0].map((item) => [
-      item?.lat,
-      item?.lng,
-    ]);
-    const id = e?.layer?._leaflet_id;
-    savePolygon({ id, corrdinates });
-    e?.layer?.remove();
-  };
-
-  const editPoly = (e) => {
-    if (Object.keys(e?.layers?._layers).length) {
-      e?.layers?.eachLayer((layer) => {
-        const corrdinates = layer?._latlngs[0].map((item) => [
-          item?.lat,
-          item?.lng,
-        ]);
-        const id = layer?._leaflet_id;
-        savePolygon({ id, corrdinates });
-      });
+    if (featureGroupRef.current && context?.activeField?.polygon) {
+      const layerGroup = featureGroupRef.current;
+      layerGroup.clearLayers();
+      L.polygon(context?.activeField?.polygon.coordinates || [], {
+        color: "blue",
+        weight: 1.5,
+      }).addTo(layerGroup);
     }
-  };
-  const deletePoly = (e) => {
-    if (Object.keys(e?.layers?._layers).length) {
-      setField(null);
-      localStorage.clear();
-    }
-  };
+  }, [context?.activeField]);
+
+  const createPoly = useCallback(
+    async (e) => {
+      try {
+        const areaMeterSquare = L.GeometryUtil.geodesicArea(
+          e.layer.getLatLngs()[0]
+        );
+
+        const coordinates = e.layer
+          .getLatLngs()[0]
+          .map((item) => [item.lat, item.lng]);
+        const polyid = e.layer._leaflet_id;
+        if (!userId || !coordinates || !polyid) {
+          throw new Error("Something Went Wrong");
+        }
+        const res = await createPolygon({
+          userId,
+          polygon: { polyid, coordinates, area: areaMeterSquare },
+        });
+        if (!res?.error) {
+          toast.success("Polygon Created", {
+            richColors: true,
+            closeButton: true,
+          });
+          context.setAllField((prev) => [...prev, res]);
+          context.setActiveField(res);
+        } else {
+          throw new Error(res?.error);
+        }
+        e.layer.remove();
+      } catch (error) {
+        e.layer.remove();
+        toast.error(error?.message, { richColors: true, closeButton: true });
+      }
+    },
+    [userId]
+  );
+
+  const editPoly = useCallback(
+    async (e) => {
+      let coordinates, polyid;
+      if (
+        Object.keys(e?.layers?._layers).length &&
+        field &&
+        deletedPoly.length < 1
+      ) {
+        e.layers.eachLayer((layer) => {
+          coordinates = layer
+            .getLatLngs()[0]
+            .map((item) => [item.lat, item.lng]);
+          polyid = layer._leaflet_id;
+        });
+        try {
+          if (!field?.id || !coordinates) {
+            throw new Error("Something Went Wrong");
+          }
+          const res = await editPolygon(field?.id, {
+            polygon: { polyid, coordinates },
+          });
+          if (!res?.error) {
+            toast.success("Polygon Updated", {
+              richColors: true,
+              closeButton: true,
+            });
+            setField(res);
+          } else {
+            throw new Error(res?.error);
+          }
+        } catch (error) {
+          toast.error(error?.message || "Edit failed", {
+            richColors: true,
+            closeButton: true,
+          });
+        }
+      }
+    },
+    [field?.id, userId]
+  );
+
+  const deletePoly = useCallback(
+    async (e) => {
+      try {
+        if (Object.keys(e.layers._layers).length && field) {
+          deletedPoly.push(field.id);
+          if (deletedPoly.length < 2) {
+            const res = await deletePolygon(field?.id);
+            if (!res?.error) {
+              toast.success("Polygon Deleted", {
+                richColors: true,
+                closeButton: true,
+              });
+              setField(null);
+            } else {
+              throw new Error(res?.error);
+            }
+          }
+        }
+      } catch (error) {
+        toast.error(error?.message || "Delete failed", {
+          richColors: true,
+          closeButton: true,
+        });
+      }
+    },
+    [field?.id, userId]
+  );
+
   return (
     <MapContainer
       center={[22.9932327, 91.3706077]}
@@ -53,16 +144,7 @@ export default function MainMap() {
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
       />
-
-      <FeatureGroup>
-        {field && (
-          <Polygon
-            key={field?.id}
-            positions={field?.corrdinates || []}
-            color="Blue"
-            weight={1.5}
-          />
-        )}
+      <FeatureGroup ref={featureGroupRef}>
         <EditControl
           position="topright"
           onCreated={createPoly}
@@ -74,14 +156,11 @@ export default function MainMap() {
             circlemarker: false,
             marker: false,
             polyline: false,
-            polygon:
-              field?.corrdinates?.length > 0
-                ? false
-                : {
-                    allowIntersection: false,
-                    showArea: true,
-                    shapeOptions: { color: "blue", weight: 1.5 },
-                  },
+            polygon: {
+              allowIntersection: false,
+              showArea: true,
+              shapeOptions: { color: "blue", weight: 1.5 },
+            },
           }}
         />
       </FeatureGroup>
