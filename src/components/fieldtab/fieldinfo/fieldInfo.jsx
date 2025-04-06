@@ -18,20 +18,19 @@ export default function FieldInfo() {
 
   let lat_lng;
   let area;
-  if (context?.activeField?.polygon) {
-    const corr = context?.activeField?.polygon;
-    const [lat, lng] = corr?.coordinates
-      ? corr?.coordinates.reduce(
-          ([lt, ln], row) => [lt + row[0], ln + row[1]],
-          [0, 0]
-        )
+  if (context?.activeGeoInfo?.geojson) {
+    const corr = context?.activeGeoInfo?.geojson;
+    const [lat, lng] = corr
+      ? corr.reduce(([lt, ln], row) => [lt + row[0], ln + row[1]], [0, 0])
       : null;
     lat_lng =
       corr &&
-      `${(lat / corr?.coordinates?.length).toPrecision(3)} | ${(
-        lng / corr?.coordinates?.length
+      `${(lat / corr.length).toPrecision(3)} | ${(
+        lng / corr.length
       ).toPrecision(3)}`;
-    area = corr && (corr?.area / 4047).toPrecision(3);
+    area =
+      context?.activeGeoInfo?.area &&
+      (context?.activeGeoInfo?.area / 4047).toPrecision(3);
   }
   return (
     <>
@@ -42,7 +41,7 @@ export default function FieldInfo() {
             <Info size={16} />
           </button>
         </div>
-        {context?.activeField?.id && !context?.activeField?.cropName && (
+        {context?.activeGeoInfo?.id && !context?.activeGeoInfo?.cropName && (
           <Dialog>
             <DialogTrigger
               className={"flex items-center gap-1.5 active:scale-95"}
@@ -67,7 +66,7 @@ export default function FieldInfo() {
             <ScrollArea className="whitespace-nowrap bg-[#212930] p-1 rounded-md border-2 border-[#45484a]">
               <p className="text-sm text-[#8eb0d3]">Field ID</p>
               <p className="text-sm text-white">
-                {context?.activeField?.id || <>&#65343;</>}
+                {context?.activeGeoInfo?.id || <>&#65343;</>}
               </p>
               <ScrollBar orientation="horizontal" />
             </ScrollArea>
@@ -86,29 +85,29 @@ export default function FieldInfo() {
             <ScrollArea className="whitespace-nowrap bg-[#212930] p-1 rounded-md border-2 border-[#45484a]">
               <p className="text-sm text-[#8eb0d3]">Crop Name</p>
               <p className="text-sm text-white">
-                {context?.activeField?.cropName || <>&#65343;</>}
+                {context?.activeGeoInfo?.cropName || <>&#65343;</>}
               </p>
               <ScrollBar orientation="horizontal" />
             </ScrollArea>
             <ScrollArea className="whitespace-nowrap bg-[#212930] p-1 rounded-md border-2 border-[#45484a]">
               <p className="text-sm text-[#8eb0d3]">Crop Type</p>
               <p className="text-sm text-white">
-                {context?.activeField?.cropType || <>&#65343;</>}
+                {context?.activeGeoInfo?.cropType || <>&#65343;</>}
               </p>
               <ScrollBar orientation="horizontal" />
             </ScrollArea>
             <ScrollArea className="whitespace-nowrap bg-[#212930] p-1 rounded-md border-2 border-[#45484a]">
               <p className="text-sm text-[#8eb0d3]">Soil Type</p>
               <p className="text-sm text-white">
-                {context?.activeField?.soilType || <>&#65343;</>}
+                {context?.activeGeoInfo?.soilType || <>&#65343;</>}
               </p>
               <ScrollBar orientation="horizontal" />
             </ScrollArea>
             <ScrollArea className="whitespace-nowrap bg-[#212930] p-1 rounded-md border-2 border-[#45484a]">
               <p className="text-sm text-[#8eb0d3]">Sowing Date</p>
               <p className="text-sm text-white">
-                {context?.activeField?.sowing ? (
-                  format(context?.activeField?.sowing, "PPP")
+                {context?.activeGeoInfo?.sowing ? (
+                  format(context?.activeGeoInfo?.sowing, "PPP")
                 ) : (
                   <>&#65343;</>
                 )}
@@ -118,8 +117,8 @@ export default function FieldInfo() {
             <ScrollArea className="whitespace-nowrap bg-[#212930] p-1 rounded-md border-2 border-[#45484a]">
               <p className="text-sm text-[#8eb0d3]">~ Harvesting Date</p>
               <p className="text-sm text-white">
-                {context?.activeField?.harvesting ? (
-                  format(context?.activeField?.harvesting, "PPP")
+                {context?.activeGeoInfo?.harvesting ? (
+                  format(context?.activeGeoInfo?.harvesting, "PPP")
                 ) : (
                   <>&#65343;</>
                 )}
@@ -129,35 +128,35 @@ export default function FieldInfo() {
             <ScrollArea className="whitespace-nowrap bg-[#212930] p-1 rounded-md border-2 border-[#45484a]">
               <p className="text-sm text-[#8eb0d3]">Maturity Period</p>
               <p className="text-sm text-white">
-                {context?.activeField?.maturityDay || <>&#65343;</>}
+                {context?.activeGeoInfo?.maturityDay || <>&#65343;</>}
               </p>
               <ScrollBar orientation="horizontal" />
             </ScrollArea>
             <ScrollArea className="whitespace-nowrap bg-[#212930] p-1 rounded-md border-2 border-[#45484a]">
               <p className="text-sm text-[#8eb0d3]">Surface Temperature</p>
               <p className="text-sm text-white">
-                {context?.activeField?.surfaceTemp || <>&#65343;</>}
+                {context?.activeGeoInfo?.surfaceTemp || <>&#65343;</>}
               </p>
               <ScrollBar orientation="horizontal" />
             </ScrollArea>
             <ScrollArea className="whitespace-nowrap bg-[#212930] p-1 rounded-md border-2 border-[#45484a]">
               <p className="text-sm text-[#8eb0d3]">Soil Moisture</p>
               <p className="text-sm text-white">
-                {context?.activeField?.soilMoist || <>&#65343;</>}
+                {context?.activeGeoInfo?.soilMoist || <>&#65343;</>}
               </p>
               <ScrollBar orientation="horizontal" />
             </ScrollArea>
             <ScrollArea className="whitespace-nowrap bg-[#212930] p-1 rounded-md border-2 border-[#45484a]">
               <p className="text-sm text-[#8eb0d3]">Crop Health (NDVI)</p>
               <p className="text-sm text-white">
-                {context?.activeField?.ndvi || <>&#65343;</>}
+                {context?.activeGeoInfo?.ndvi || <>&#65343;</>}
               </p>
               <ScrollBar orientation="horizontal" />
             </ScrollArea>
             <ScrollArea className="whitespace-nowrap bg-[#212930] p-1 rounded-md border-2 border-[#45484a]">
               <p className="text-sm text-[#8eb0d3]">Leaf Condition (LAI)</p>
               <p className="text-sm text-white">
-                {context?.activeField?.lai || <>&#65343;</>}
+                {context?.activeGeoInfo?.lai || <>&#65343;</>}
               </p>
               <ScrollBar orientation="horizontal" />
             </ScrollArea>

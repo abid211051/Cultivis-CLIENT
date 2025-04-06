@@ -8,16 +8,30 @@ export default function IndividualField() {
   return (
     <div className="flex flex-col gap-1.5">
       {context?.allField.length > 0 ? (
-        context?.allField.map((field, index) => (
+        context?.allField.map((field) => (
           <button
             className={`w-full flex  rounded-md border-2  bg-[#212930] ${
-              context?.activeField?.id === field?.id
-                ? "border-[#7573f3]"
+              context?.activeGeoJson?.features[0]?.id === field?.id
+                ? "border-[#3b8efc]"
                 : "border-[#45484a]"
             } cursor-pointer active:scale-[97%]`}
             key={field?.id}
-            value={field}
-            onClick={() => context.setActiveField(field)}
+            onClick={() => (
+              context.setactiveGeoJson({
+                type: "FeatureCollection",
+                features: [
+                  {
+                    type: "Feature",
+                    id: field.id,
+                    geometry: {
+                      type: "Polygon",
+                      coordinates: [field.geojson],
+                    },
+                  },
+                ],
+              }),
+              context.setactiveGeoInfo(field)
+            )}
           >
             <div className="w-[50px]">
               <Image
@@ -34,8 +48,7 @@ export default function IndividualField() {
                   Field - {field?.id.slice(0, 5)}...
                 </p>
                 <p className="text-xs">
-                  Area:{" "}
-                  <span>{(field?.polygon?.area / 4047).toPrecision(2)} ac</span>
+                  Area: <span>{(field?.area / 4047).toPrecision(2)} ac</span>
                 </p>
               </div>
               <div className="flex justify-between gap-2 items-end">

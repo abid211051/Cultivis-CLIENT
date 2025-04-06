@@ -32,8 +32,6 @@ export const authConfig = {
           }
           return user;
         } catch (error) {
-          console.log("From authorize: ", error);
-
           throw new Error(error);
         }
       },
