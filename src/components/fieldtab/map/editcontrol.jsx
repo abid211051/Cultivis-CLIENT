@@ -38,16 +38,16 @@ export default function EditControlFC({ userId }) {
   const context = useContext(mapContext);
   // let multicallHandleRef = useRef(0);
   function setFieldInMap() {
-    if (context.activeField) {
+    if (context.activeGeoJson) {
       ref.current.clearLayers();
-      L.geoJSON(context.activeField).eachLayer((layer) => {
+      L.geoJSON(context.activeGeoJson).eachLayer((layer) => {
         ref.current?.addLayer(layer);
       });
     }
   }
   useEffect(() => {
     setFieldInMap();
-  }, [context.activeField]);
+  }, [context.activeGeoJson]);
 
   const handleChange = useCallback(async (event) => {
     const geo = ref.current?.toGeoJSON();
@@ -94,6 +94,11 @@ export default function EditControlFC({ userId }) {
                   : field
               )
             );
+            context.setactiveGeoInfo((prev) => ({
+              ...prev,
+              area: res.area,
+              geojson: res.geojson,
+            }));
             toast.success("Field Updated", {
               closeButton: true,
               richColors: true,
@@ -122,6 +127,7 @@ export default function EditControlFC({ userId }) {
             context.setAllField((prevfield) =>
               prevfield.filter((field) => field.id !== res.id)
             );
+            context.setactiveGeoInfo(null);
             toast.success("Field was deleted", {
               closeButton: true,
               richColors: true,

@@ -26,7 +26,8 @@ export const mapContext = createContext(null);
 // }
 export function MapContextProvider({ userId, children }) {
   const [allField, setAllField] = useState([]);
-  const [activeField, setActiveField] = useState(null);
+  const [activeGeoJson, setactiveGeoJson] = useState(null);
+  const [activeGeoInfo, setactiveGeoInfo] = useState(null);
   useEffect(() => {
     async function allPoly() {
       if (!userId) return;
@@ -40,11 +41,18 @@ export function MapContextProvider({ userId, children }) {
     allPoly();
   }, [userId]);
   // useEffect(() => {
-  //   console.log(activeField);
-  // }, [activeField]);
+  //   console.log(activeGeoInfo);
+  // }, [activeGeoInfo]);
   return (
     <mapContext.Provider
-      value={{ allField, activeField, setAllField, setActiveField }}
+      value={{
+        allField,
+        activeGeoJson,
+        activeGeoInfo,
+        setactiveGeoInfo,
+        setAllField,
+        setactiveGeoJson,
+      }}
     >
       {children}
     </mapContext.Provider>

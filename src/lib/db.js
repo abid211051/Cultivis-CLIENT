@@ -13,7 +13,7 @@ const dbConnect = async () => {
     }
     await mongoose.connect(MONGODB_URI);
   } catch (error) {
-    console.error("MongoDB Connection Error:", error);
+    throw Error(error);
   }
 };
 

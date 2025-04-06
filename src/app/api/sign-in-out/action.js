@@ -12,7 +12,7 @@ export async function authenticate(prevState, formData) {
         case "CredentialsSignin":
           return "Invalid credentials.";
         default:
-          return "Something went wrong.";
+          return error.message;
       }
     }
     throw error;

@@ -25,12 +25,12 @@ export default function CropInfoModal() {
       toast.error("Please Provide Sowing Date");
       return;
     }
-    if (!context.activeField?.id) {
+    if (!context.activeGeoInfo?.id) {
       toast.error("No Field was Selected");
       return;
     }
     const data = {
-      fieldId: context.activeField?.id,
+      fieldId: context.activeGeoInfo?.id,
       cropname: e.target.cropname.value,
       croptype: e.target.croptype.value,
       maturity: e.target.maturity.value,
@@ -44,7 +44,7 @@ export default function CropInfoModal() {
           richColors: true,
           closeButton: true,
         });
-        context.setActiveField((prev) => ({ ...prev, ...res }));
+        context.setactiveGeoInfo((prev) => ({ ...prev, ...res }));
         context.setAllField((prev) =>
           prev.map((field) =>
             field.id === data.fieldId ? { ...field, ...res } : field
