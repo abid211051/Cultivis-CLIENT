@@ -12,6 +12,7 @@ export async function getPolygon(userId) {
 
 export async function createPolygon(data) {
   try {
+    if (!data) throw Error("No data given");
     const res = await fetch(`${process.env.SERVER_URL}/map/createpoly`, {
       method: "POST",
       headers: { "content-type": "application/json" },

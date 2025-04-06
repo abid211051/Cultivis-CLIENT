@@ -4,6 +4,11 @@ import Fields from "@/components/fieldtab/fieldinfo/fields";
 import Map from "@/components/fieldtab/map/map";
 import { MapContextProvider } from "@/context/mapcontext";
 
+export const metadata = {
+  title: "Dashboard-field",
+  description: "This page represent all the Field functionality",
+};
+
 export default async function Page() {
   const user = await isvalid();
   return (

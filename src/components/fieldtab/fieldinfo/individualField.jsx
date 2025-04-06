@@ -16,8 +16,22 @@ export default function IndividualField() {
                 : "border-[#45484a]"
             } cursor-pointer active:scale-[97%]`}
             key={field?.id}
-            value={field}
-            onClick={() => context.setActiveField(field)}
+            onClick={() =>
+              context.setActiveField({
+                type: "FeatureCollection",
+                features: [
+                  {
+                    type: "Feature",
+                    id: field.id,
+                    properties: {},
+                    geometry: {
+                      type: "Polygon",
+                      coordinates: [field.geojson],
+                    },
+                  },
+                ],
+              })
+            }
           >
             <div className="w-[50px]">
               <Image
