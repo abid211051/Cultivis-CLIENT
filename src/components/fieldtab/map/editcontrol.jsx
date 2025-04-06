@@ -36,7 +36,7 @@ import { toast } from "sonner";
 export default function EditControlFC({ userId }) {
   const ref = useRef(null);
   const context = useContext(mapContext);
-  let multicallHandleRef = useRef(0);
+  // let multicallHandleRef = useRef(0);
   function setFieldInMap() {
     if (context.activeField) {
       ref.current.clearLayers();
@@ -72,11 +72,9 @@ export default function EditControlFC({ userId }) {
         }
         ref.current.clearLayers();
       } else if (event.type === "draw:edited") {
-        if (
-          Object.keys(event.layers._layers).length &&
-          multicallHandleRef.current > 0 &&
-          multicallHandleRef.current < 2
-        ) {
+        // multicallHandleRef.current > 0 &&
+        // multicallHandleRef.current < 2
+        if (Object.keys(event.layers._layers).length) {
           try {
             let area;
             event.layers.eachLayer(
@@ -103,16 +101,15 @@ export default function EditControlFC({ userId }) {
           } catch (error) {
             toast.error(error.message, { closeButton: true, richColors: true });
           }
-          multicallHandleRef.current = 0;
-        } else {
-          multicallHandleRef.current++;
+          // multicallHandleRef.current = 0;
         }
+        // else {
+        //   multicallHandleRef.current++;
+        // }
       } else if (event.type === "draw:deleted") {
-        if (
-          Object.keys(event.layers._layers).length &&
-          multicallHandleRef.current > 0 &&
-          multicallHandleRef.current < 2
-        ) {
+        // multicallHandleRef.current > 0 &&
+        // multicallHandleRef.current < 2
+        if (Object.keys(event.layers._layers).length) {
           try {
             let id;
             event.layers.eachLayer((layer) => {
@@ -132,10 +129,11 @@ export default function EditControlFC({ userId }) {
           } catch (error) {
             toast.error(error.message, { closeButton: true, richColors: true });
           }
-          multicallHandleRef.current = 0;
-        } else {
-          multicallHandleRef.current++;
+          // multicallHandleRef.current = 0;
         }
+        // else {
+        //   multicallHandleRef.current++;
+        // }
       }
     }
   }, []);
