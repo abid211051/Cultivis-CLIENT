@@ -4,26 +4,7 @@ import { createContext, useEffect, useState } from "react";
 import { toast } from "sonner";
 
 export const mapContext = createContext(null);
-// {
-//   type: "FeatureCollection",
-//   features: [
-//     {
-//       type: "Feature",
-//       geometry: {
-//         type: "Polygon",
-//         coordinates: [
-//           [
-//             [-73.976543, 40.777349],
-//             [-73.975894, 40.777381],
-//             [-73.975872, 40.776946],
-//             [-73.976687, 40.776821],
-//             [-73.976543, 40.777349],
-//           ],
-//         ],
-//       },
-//     },
-//   ],
-// }
+
 export function MapContextProvider({ userId, children }) {
   const [allField, setAllField] = useState([]);
   const [activeGeoJson, setactiveGeoJson] = useState(null);
@@ -40,9 +21,7 @@ export function MapContextProvider({ userId, children }) {
     }
     allPoly();
   }, [userId]);
-  // useEffect(() => {
-  //   console.log(activeGeoInfo);
-  // }, [activeGeoInfo]);
+
   return (
     <mapContext.Provider
       value={{

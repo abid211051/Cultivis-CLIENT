@@ -22,9 +22,9 @@ export function LoginForm({ className, ...props }) {
       className={cn("flex flex-col gap-1 translate-y-5", className)}
       {...props}
     >
-      <Card className="overflow-hidden">
+      <Card className="overflow-hidden py-0">
         <CardContent className="grid p-0 md:grid-cols-2">
-          <form className="px-3 md:px-4 pb-4 pt-2" action={formAction}>
+          <form className="px-3 md:px-4 py-5" action={formAction}>
             <div className="flex flex-col gap-4">
               <div className="flex flex-col items-center text-center">
                 <h1 className="text-2xl font-bold">Welcome back</h1>
