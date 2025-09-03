@@ -35,7 +35,7 @@ export async function middleware(req) {
       status: 308,
     });
   }
-  return new NextResponse("Forbidden", { status: 403 });
+  return NextResponse("Forbidden", { status: 403 });
 }
 
 export const config = {
